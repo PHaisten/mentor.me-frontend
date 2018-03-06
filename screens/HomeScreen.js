@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import {
 	Header,
 	Title,
@@ -14,7 +14,32 @@ import {
 	Content
 } from 'native-base';
 import SideBar from '../src/components/SideBar';
+import MentorCard from '../src/components/MentorCard';
 export default class HomeScreen extends Component {
+	constructor(props) {
+		super(props);
+		this.state = { mentors: [] };
+	}
+
+	async componentDidMount() {
+		let mentors = await this.fetchProfiles();
+
+		this.setState({ mentors });
+	}
+
+	async fetchProfiles() {
+		try {
+			let result = await fetch({
+				url: 'http://localhost:3000/api/mentors'
+			});
+			let mentors = await result.json();
+			return mentors;
+		} catch (e) {
+			console.log(e);
+			return;
+		}
+	}
+
 	render() {
 		closeDrawer = () => {
 			this.drawer._root.close();
@@ -45,31 +70,11 @@ export default class HomeScreen extends Component {
 						<Title style={{ color: '#FFF' }}>Mentor.Me</Title>
 					</Body>
 				</Header>
-				<View style={{ padding: 10 }}>
-					<Card style={{ flex: 0 }}>
-						<CardItem>
-							<Left>
-								<Body>
-									<Text>NativeBase</Text>
-									<Text note>April 15, 2016</Text>
-								</Body>
-							</Left>
-						</CardItem>
-						<CardItem>
-							<Body>
-								<Text>This is some sample text!</Text>
-							</Body>
-						</CardItem>
-						<CardItem>
-							<Left>
-								<Button transparent textStyle={{ color: '#87838B' }}>
-									<Icon name="logo-github" />
-									<Text>1,926 stars</Text>
-								</Button>
-							</Left>
-						</CardItem>
-					</Card>
-				</View>
+				<ScrollView>
+					{this.state.mentors.map(mentor => {
+						return <MentorCard key={mentor.id} mentor={mentor} />;
+					})}
+				</ScrollView>
 			</Drawer>
 		);
 	}

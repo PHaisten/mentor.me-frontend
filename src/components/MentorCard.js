@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Platform } from 'react-native';
+// import { Platform } from 'react-native';
+import { View } from 'react-native';
 import {
 	Button,
 	Icon,
@@ -10,22 +11,25 @@ import {
 	Card,
 	CardItem
 } from 'native-base';
-const Item = Picker.Item;
-export default class PickerCustom extends Component {
+
+export default class MentorCard extends Component {
 	render() {
 		return (
-			<Card style={{ flex: 0 }}>
+			<Card key={this.props.mentor.userid}>
 				<CardItem>
 					<Left>
 						<Body>
-							<Text>NativeBase</Text>
+							<Text>{this.props.mentor.location}</Text>
 							<Text note>April 15, 2016</Text>
 						</Body>
 					</Left>
 				</CardItem>
 				<CardItem>
 					<Body>
-						<Text>This is some sample text!</Text>
+						<Text style={{ marginBottom: 10 }}>{this.props.mentor.bio}</Text>
+						<Text style={{ marginBottom: 10 }}>
+							{this.props.mentor.qualifications}
+						</Text>
 					</Body>
 				</CardItem>
 				<CardItem>
