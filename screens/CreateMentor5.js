@@ -46,7 +46,7 @@ export default class CreateMentor1 extends React.Component {
 				<List>
 					<ListItem>
 						<Left>
-							<Icon name="plane" />
+							<Icon name="logo-html5" />
 						</Left>
 						<Body>
 							<Text>HTML</Text>
@@ -62,7 +62,7 @@ export default class CreateMentor1 extends React.Component {
 					</ListItem>
 					<ListItem>
 						<Left>
-							<Icon name="plane" />
+							<Icon name="logo-css3" />
 						</Left>
 						<Body>
 							<Text>CSS</Text>
@@ -78,7 +78,7 @@ export default class CreateMentor1 extends React.Component {
 					</ListItem>
 					<ListItem>
 						<Left>
-							<Icon name="plane" />
+							<Icon name="logo-javascript" />
 						</Left>
 						<Body>
 							<Text>JavaScript</Text>
@@ -94,7 +94,7 @@ export default class CreateMentor1 extends React.Component {
 					</ListItem>
 					<ListItem>
 						<Left>
-							<Icon name="plane" />
+							<Icon name="logo-react" />
 						</Left>
 						<Body>
 							<Text>React</Text>
@@ -110,7 +110,7 @@ export default class CreateMentor1 extends React.Component {
 					</ListItem>
 					<ListItem>
 						<Left>
-							<Icon name="plane" />
+							<Icon name="logo-react" />
 						</Left>
 						<Body>
 							<Text>React-Native</Text>

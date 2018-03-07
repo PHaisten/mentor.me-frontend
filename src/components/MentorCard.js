@@ -19,7 +19,9 @@ export default class MentorCard extends Component {
 				<CardItem>
 					<Left>
 						<Body>
-							<Text>{this.props.mentor.location}</Text>
+							<Text>
+								{this.props.mentor.firstname} {this.props.mentor.lastname}
+							</Text>
 							<Text note>April 15, 2016</Text>
 						</Body>
 					</Left>

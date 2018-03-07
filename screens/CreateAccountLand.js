@@ -39,9 +39,14 @@ export default class CreateAccountLand extends Component {
 	// 		return;
 	// 	}
 	// }
+	navigate1() {
+		this.props.navigation.navigate('CreateMentee', { name: 'Mentee' });
+	}
+	navigate2() {
+		this.props.navigation.navigate('CreateMentor1', { name: 'Mentor' });
+	}
 
 	render() {
-		const { navigate } = this.props.navigation;
 		return (
 			<Content>
 				<Card>
@@ -51,27 +56,14 @@ export default class CreateAccountLand extends Component {
 						</Body>
 					</CardItem>
 				</Card>
-				<PickerCustom />
-				<Form>
-					<Item stackedLabel>
-						<Label>Email</Label>
-						<Input keyboardType="email-address" />
-					</Item>
-					<Item stackedLabel last>
-						<Label>Password</Label>
-						<Input secureTextEntry />
-					</Item>
-				</Form>
-
-				<Button
-					block
-					info
-					padding
-					style={{ width: 250, alignSelf: 'center', marginTop: 10 }}
-					onPress={() => navigate('CreateMentor1', { name: 'Mentor' })}
-				>
-					<Text>Submit</Text>
-				</Button>
+				<PickerCustom
+					Picker2={() => {
+						this.navigate1();
+					}}
+					Picker1={() => {
+						this.navigate2();
+					}}
+				/>
 			</Content>
 		);
 	}
