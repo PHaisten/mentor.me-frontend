@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View } from 'react-native';
 import {
 	Content,
@@ -13,19 +13,21 @@ import {
 	Button
 } from 'native-base';
 
-export default class CreateMentor1 extends React.Component {
+export default class CreateMentor1 extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			firstname: '',
 			lastname: '',
 			email: '',
-			password: ''
+			password: '',
+			id: ''
 		};
 	}
 
 	createMentor() {
-		fetch('http://localhost:3000/api/mentors/create', {
+		const { navigate } = this.props.navigation;
+		fetch('http://localhost:3000/api/mentors/create/', {
 			method: 'post',
 			body: JSON.stringify({
 				firstname: this.state.firstname,
@@ -37,16 +39,18 @@ export default class CreateMentor1 extends React.Component {
 				'Content-Type': 'application/json'
 			})
 		})
-			.then(res => {
-				console.log(res);
+			.then(res => res.json())
+			.then(results => {
+				this.setState({ id: results.insertId });
+				console.log(this.state.id);
 			})
+			.then(() => navigate('CreateMentor2', { id: this.state.id }))
 			.catch(err => {
 				console.log(err);
 			});
 	}
 
 	render() {
-		const { navigate } = this.props.navigation;
 		return (
 			<Content>
 				<Form>
@@ -58,7 +62,7 @@ export default class CreateMentor1 extends React.Component {
 							}}
 							onChangeText={firstname => {
 								this.setState({ firstname });
-								console.log(this.state.firstname);
+								console.log(this.state);
 							}}
 							value={this.state.firstname}
 						/>

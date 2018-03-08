@@ -27,7 +27,7 @@ const RootNavigator = StackNavigator(
 		CreateMentor5: { screen: CreateMentor5 }
 	},
 	{
-		initialRouteName: 'Login'
+		initialRouteName: 'CreateAccountLand'
 	}
 );
 
