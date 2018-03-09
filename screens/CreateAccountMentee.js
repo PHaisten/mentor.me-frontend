@@ -20,11 +20,13 @@ export default class CreateAccountMentee extends React.Component {
 			firstname: '',
 			lastname: '',
 			email: '',
-			password: ''
+			password: '',
+			id: ''
 		};
 	}
 
 	createMentee() {
+		const { navigate } = this.props.navigation;
 		fetch('http://localhost:3000/api/mentees/create', {
 			method: 'post',
 			body: JSON.stringify({
@@ -37,9 +39,12 @@ export default class CreateAccountMentee extends React.Component {
 				'Content-Type': 'application/json'
 			})
 		})
-			.then(res => {
-				console.log(res);
+			.then(res => res.json())
+			.then(results => {
+				this.setState({ id: results.insertId });
+				console.log(results);
 			})
+			.then(() => navigate('CreateMentee2', { id: this.state.id }))
 			.catch(err => {
 				console.log(err);
 			});

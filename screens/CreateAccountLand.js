@@ -16,16 +16,16 @@ import {
 import PickerCustom from '../src/components/PickerCustom';
 
 export default class CreateAccountLand extends Component {
-	navigate1() {
-		this.props.navigation.navigate('CreateMentee', { name: 'Mentee' });
-	}
-	navigate2() {
-		this.props.navigation.navigate('CreateMentor1', { name: 'Mentor' });
-	}
+	// navigate1() {
+	// 	this.props.navigation.navigate('CreateMentee', { name: 'Mentee' });
+	// }
+	// navigate2() {
+	// 	this.props.navigation.navigate('CreateMentor1', { name: 'Mentor' });
+	// }
 
 	render() {
 		return (
-			<Content>
+			<Content style={{ marginTop: 30 }}>
 				<Card>
 					<CardItem>
 						<Body>
@@ -34,11 +34,11 @@ export default class CreateAccountLand extends Component {
 					</CardItem>
 				</Card>
 				<PickerCustom
-					Picker2={() => {
-						this.navigate1();
-					}}
 					Picker1={() => {
-						this.navigate2();
+						this.props.screenProps.handleChoice('mentor');
+					}}
+					Picker2={() => {
+						this.props.screenProps.handleChoice('mentee');
 					}}
 				/>
 			</Content>

@@ -52,7 +52,7 @@ export default class CreateMentor1 extends Component {
 
 	render() {
 		return (
-			<Content>
+			<Content style={{ marginTop: 30 }}>
 				<Form>
 					<Item floatingLabel>
 						<Label>First Name</Label>
