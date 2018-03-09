@@ -5,24 +5,24 @@ export default class ListSkills extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			skills: ['Test'],
+			skill: this.props.skill.id,
 			toggleValue: false
 		};
 	}
 
-	async handleValue(val) {
-		try {
-			await this.setState({ toggleValue: val });
-			this.state.toggleValue
-				? await this.props.addSkill(this.props.skill.id)
-				: await this.props.removeSkill(this.props.skill.id);
-		} catch (e) {
-			console.log(e);
-			return;
+	handleToggle(value) {
+		this.setState({ toggleValue: value });
+		if (value === true) {
+			this.props.NewSkill(this.state.skill);
+			console.log('Add', this.state.skill);
+		} else if (value === false) {
+			console.log('Remove', this.state.skill);
+			this.props.RemoveSkill(this.state.skill);
 		}
 	}
 
 	render() {
+		// console.log('Super Initial State ' + this.state.toggleValue);
 		return (
 			<ListItem key={this.props.skill.id}>
 				<Body>
@@ -31,7 +31,9 @@ export default class ListSkills extends Component {
 				<Right>
 					<Switch
 						value={this.state.toggleValue}
-						onValueChange={value => this.handleValue(value)}
+						onValueChange={value => {
+							this.handleToggle(value);
+						}}
 					/>
 				</Right>
 			</ListItem>

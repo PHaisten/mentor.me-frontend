@@ -28,9 +28,7 @@ export default class CreateMentee3 extends Component {
 			skillList: [],
 			skills: []
 		};
-		// this.id = this.props.navigation.state.params.id;
-		this.handleAddSkill.bind(this);
-		this.handleRemoveSkill.bind(this);
+		this.id = this.props.navigation.state.params.id;
 	}
 
 	async componentDidMount() {
@@ -55,53 +53,42 @@ export default class CreateMentee3 extends Component {
 		}
 	}
 
-	async addSkill(id) {
-		try {
-			let arr = this.state.skills.push(id);
+	handleSkills(id) {
+		let skillArr = [...this.state.skills];
+		skillArr.push(id);
+		this.setState({ skills: skillArr });
+		console.log(this.state.skills);
+	}
 
-			this.runSetSkills(arr);
-		} catch (e) {
-			console.log(e);
-			return;
+	removeSkill(id) {
+		let arr = [...this.state.skills];
+		let index = arr.indexOf(id);
+		for (let i = 0; i < arr.length; i++) {
+			if (id === arr[i]) {
+				console.log('this id is here');
+				console.log(id + ' matches the array ' + arr[i]);
+				arr.splice(index, 1);
+				this.setState({ skills: arr });
+			}
 		}
 	}
 
-	async removeSkill(id) {
-		try {
-			let arr = this.state.skills;
-			let i = arr.indexOf(id);
-			let newArr = arr.splice(i, 1);
-
-			this.runSetSkills(newArr);
-		} catch (e) {
-			console.log(e);
-			return;
-		}
-	}
-
-	async runSetSkills(prop) {
-		try {
-			this.setState({ skills: prop });
-			console.log(this.state.skills);
-		} catch (e) {
-			console.log(e);
-			return;
-		}
-	}
-
-	async handleAddSkill(prop) {
-		try {
-			this.addSkill(prop);
-		} catch (e) {
-			console.log(e);
-		}
-	}
-
-	async handleRemoveSkill(prop) {
-		try {
-			this.addSkill(prop);
-		} catch (e) {
-			console.log(e);
+	onSubmit() {
+		console.log(
+			'This is the array that should be submitted ',
+			this.state.skills
+		);
+		for (let i = 0; i < this.state.skills.length; i++) {
+			let topic = this.state.skills[i];
+			fetch(`http://localhost:3000/api/mentees/skill/${this.id}`, {
+				method: 'post',
+				body: JSON.stringify({
+					topicid: topic
+				}),
+				headers: new Headers({
+					'Content-Type': 'application/json'
+				})
+			});
 		}
 	}
 
@@ -128,13 +115,13 @@ export default class CreateMentee3 extends Component {
 						</CardItem>
 					</Card>
 					<List>
-						{this.state.skillList.map((skill, id) => {
+						{this.state.skillList.map((skill, index) => {
 							return (
 								<ListSkills
-									key={id}
+									key={index}
 									skill={skill}
-									addSkill={this.handleAddSkill.bind(this)}
-									removeSkill={this.handleRemoveSkill.bind(this)}
+									NewSkill={id => this.handleSkills(id)}
+									RemoveSkill={id => this.removeSkill(id)}
 								/>
 							);
 						})}
@@ -146,7 +133,7 @@ export default class CreateMentee3 extends Component {
 						info
 						padding
 						style={{ width: 250, alignSelf: 'center' }}
-						// onPress={() => this.createMentor()}
+						onPress={() => this.onSubmit()}
 					>
 						<Text>Submit</Text>
 					</Button>

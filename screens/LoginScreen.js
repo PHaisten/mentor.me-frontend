@@ -11,7 +11,6 @@ import {
 	Button
 } from 'react-native';
 import { Item, Icon } from 'native-base';
-// import CreateAccountLand from './CreateAccountLand';
 
 export default class LoginScreen extends Component {
 	render() {
