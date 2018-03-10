@@ -28,8 +28,7 @@ const CreateMentorNavigator = StackNavigator(
 		CreateMentor1: { screen: CreateMentor1 },
 		CreateMentor2: { screen: CreateMentor2 },
 		CreateMentor3: { screen: CreateMentor3 },
-		CreateMentor4: { screen: CreateMentor4 },
-		HomeScreen: { screen: HomeScreen }
+		CreateMentor4: { screen: CreateMentor4 }
 	},
 	{
 		initialRouteName: 'CreateMentor1'
@@ -41,11 +40,21 @@ const CreateMenteeNavigator = StackNavigator(
 	{
 		CreateMentee: { screen: CreateAccountMentee },
 		CreateMentee2: { screen: CreateMentee2 },
-		CreateMentee3: { screen: CreateMentee3 },
+		CreateMentee3: { screen: CreateMentee3 }
+	},
+	{
+		initialRouteName: 'CreateMentee',
+		headerMode: 'none'
+	}
+);
+
+const HomeScreenMentee = StackNavigator(
+	{
 		HomeScreen: { screen: HomeScreen }
 	},
 	{
-		initialRouteName: 'CreateMentee'
+		initialRouteName: 'HomeScreen',
+		headerMode: 'none'
 	}
 );
 
@@ -64,9 +73,21 @@ export default class App extends Component {
 
 	render() {
 		return this.state.choice === 'mentor' ? (
-			<CreateMentorNavigator />
+			<CreateMentorNavigator
+				screenProps={{ handleChoice: this.handleChoice.bind(this) }}
+			/>
 		) : this.state.choice === 'mentee' ? (
-			<CreateMenteeNavigator />
+			<CreateMenteeNavigator
+				screenProps={{ handleChoice: this.handleChoice.bind(this) }}
+			/>
+		) : this.state.choice === 'homementee' ? (
+			<HomeScreenMentee
+				screenProps={{ handleChoice: this.handleChoice.bind(this) }}
+			/>
+		) : this.state.choice === 'homementor' ? (
+			<HomeScreenMentor
+				screenProps={{ handleChoice: this.handleChoice.bind(this) }}
+			/>
 		) : (
 			<CreateAccount
 				screenProps={{ handleChoice: this.handleChoice.bind(this) }}

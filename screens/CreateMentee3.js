@@ -73,13 +73,14 @@ export default class CreateMentee3 extends Component {
 		}
 	}
 
-	onSubmit() {
+	async onSubmit() {
 		console.log(
 			'This is the array that should be submitted ',
 			this.state.skills
 		);
 		for (let i = 0; i < this.state.skills.length; i++) {
 			let topic = this.state.skills[i];
+			console.log(topic);
 			fetch(`http://localhost:3000/api/mentees/skill/${this.id}`, {
 				method: 'post',
 				body: JSON.stringify({
@@ -90,6 +91,8 @@ export default class CreateMentee3 extends Component {
 				})
 			});
 		}
+
+		await this.props.screenProps.handleChoice('homementee');
 	}
 
 	render() {
@@ -108,8 +111,8 @@ export default class CreateMentee3 extends Component {
 						<CardItem>
 							<Body>
 								<Text style={{ alignSelf: 'center' }}>
-									Please select all skills that you are interested being
-									mentored in!
+									Please select all skills that you are interested in being
+									mentored!
 								</Text>
 							</Body>
 						</CardItem>

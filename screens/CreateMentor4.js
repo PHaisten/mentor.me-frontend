@@ -1,5 +1,5 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { Component } from 'react';
+import { View, ScrollView } from 'react-native';
 import {
 	Content,
 	Form,
@@ -16,125 +16,130 @@ import {
 	Left,
 	Right,
 	Switch,
-	Icon
+	Icon,
+	Footer
 } from 'native-base';
+import ListSkills from '../src/components/ListSkills';
 
-export default class CreateMentor1 extends React.Component {
+export default class CreateMentor4 extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			toggleValue0: false,
-			toggleValue1: false,
-			toggleValue2: false,
-			toggleValue3: false,
-			toggleValue4: false
+			skillList: [],
+			skills: []
 		};
+		this.id = this.props.navigation.state.params.id;
 	}
+
+	async componentDidMount() {
+		let skillList = await this.fetchSkills();
+
+		this.setState({ skillList });
+		console.log(this.state.skills);
+	}
+
+	async fetchSkills() {
+		try {
+			let result = await fetch({
+				url: 'http://localhost:3000/api/topics'
+			});
+			let skills = await result.json(result => {
+				console.log(result);
+			});
+			return skills;
+		} catch (e) {
+			console.log(e);
+			return;
+		}
+	}
+
+	handleSkills(id) {
+		let skillArr = [...this.state.skills];
+		skillArr.push(id);
+		this.setState({ skills: skillArr });
+		console.log(this.state.skills);
+	}
+
+	removeSkill(id) {
+		let arr = [...this.state.skills];
+		let index = arr.indexOf(id);
+		for (let i = 0; i < arr.length; i++) {
+			if (id === arr[i]) {
+				console.log('this id is here');
+				console.log(id + ' matches the array ' + arr[i]);
+				arr.splice(index, 1);
+				this.setState({ skills: arr });
+			}
+		}
+	}
+
+	async onSubmit() {
+		console.log(
+			'This is the array that should be submitted ',
+			this.state.skills
+		);
+		for (let i = 0; i < this.state.skills.length; i++) {
+			let topic = this.state.skills[i];
+			fetch(`http://localhost:3000/api/mentors/skill/${this.id}`, {
+				method: 'post',
+				body: JSON.stringify({
+					topicid: topic
+				}),
+				headers: new Headers({
+					'Content-Type': 'application/json'
+				})
+			});
+		}
+
+		await this.props.screenProps.handleChoice('homementor');
+	}
+
 	render() {
-		const { navigate } = this.props.navigation;
+		// const { navigate } = this.props.navigation;
 		return (
-			<Content>
-				<Card>
-					<CardItem>
-						<Body>
-							<Text style={{ alignSelf: 'center' }}>
-								Please select all skills that you are able to mentor.
-							</Text>
-						</Body>
-					</CardItem>
-				</Card>
-				<List>
-					<ListItem>
-						<Left>
-							<Icon name="logo-html5" />
-						</Left>
-						<Body>
-							<Text>HTML</Text>
-						</Body>
-						<Right>
-							<Switch
-								value={this.state.toggleValue0}
-								onValueChange={value => {
-									this.setState({ toggleValue0: value });
-								}}
-							/>
-						</Right>
-					</ListItem>
-					<ListItem>
-						<Left>
-							<Icon name="logo-css3" />
-						</Left>
-						<Body>
-							<Text>CSS</Text>
-						</Body>
-						<Right>
-							<Switch
-								value={this.state.toggleValue1}
-								onValueChange={value => {
-									this.setState({ toggleValue1: value });
-								}}
-							/>
-						</Right>
-					</ListItem>
-					<ListItem>
-						<Left>
-							<Icon name="logo-javascript" />
-						</Left>
-						<Body>
-							<Text>JavaScript</Text>
-						</Body>
-						<Right>
-							<Switch
-								value={this.state.toggleValue2}
-								onValueChange={value => {
-									this.setState({ toggleValue2: value });
-								}}
-							/>
-						</Right>
-					</ListItem>
-					<ListItem>
-						<Left>
-							<Icon name="logo-react" />
-						</Left>
-						<Body>
-							<Text>React</Text>
-						</Body>
-						<Right>
-							<Switch
-								value={this.state.toggleValue3}
-								onValueChange={value => {
-									this.setState({ toggleValue3: value });
-								}}
-							/>
-						</Right>
-					</ListItem>
-					<ListItem>
-						<Left>
-							<Icon name="logo-react" />
-						</Left>
-						<Body>
-							<Text>React-Native</Text>
-						</Body>
-						<Right>
-							<Switch
-								value={this.state.toggleValue4}
-								onValueChange={value => {
-									this.setState({ toggleValue4: value });
-								}}
-							/>
-						</Right>
-					</ListItem>
-				</List>
-				<Button
-					block
-					info
-					padding
-					style={{ width: 250, alignSelf: 'center', marginTop: 10 }}
-					onPress={() => navigate('Confirmation Screen', {})}
-				>
-					<Text>Next</Text>
-				</Button>
-			</Content>
+			<View style={{ height: '100%', width: '100%' }}>
+				<ScrollView style={{ marginBottom: 10 }}>
+					<Card
+						style={{
+							marginLeft: 20,
+							marginRight: 20,
+							marginBottom: 10,
+							marginTop: 10
+						}}
+					>
+						<CardItem>
+							<Body>
+								<Text style={{ alignSelf: 'center' }}>
+									Please select all skills that you are interested in mentoring!
+								</Text>
+							</Body>
+						</CardItem>
+					</Card>
+					<List>
+						{this.state.skillList.map((skill, index) => {
+							return (
+								<ListSkills
+									key={index}
+									skill={skill}
+									NewSkill={id => this.handleSkills(id)}
+									RemoveSkill={id => this.removeSkill(id)}
+								/>
+							);
+						})}
+					</List>
+				</ScrollView>
+				<View style={{ marginBottom: 15, marginTop: 5 }}>
+					<Button
+						block
+						info
+						padding
+						style={{ width: 250, alignSelf: 'center' }}
+						onPress={() => this.onSubmit()}
+					>
+						<Text>Submit</Text>
+					</Button>
+				</View>
+			</View>
 		);
 	}
 }

@@ -22,7 +22,6 @@ export default class ListSkills extends Component {
 	}
 
 	render() {
-		// console.log('Super Initial State ' + this.state.toggleValue);
 		return (
 			<ListItem key={this.props.skill.id}>
 				<Body>
