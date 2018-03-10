@@ -21,7 +21,7 @@ import {
 } from 'native-base';
 import ListSkills from '../src/components/ListSkills';
 
-export default class CreateMentor4 extends Component {
+export default class CreateMentee3 extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -80,7 +80,8 @@ export default class CreateMentor4 extends Component {
 		);
 		for (let i = 0; i < this.state.skills.length; i++) {
 			let topic = this.state.skills[i];
-			fetch(`http://localhost:3000/api/mentors/skill/${this.id}`, {
+			console.log(topic);
+			fetch(`http://localhost:3000/api/mentees/skill/${this.id}`, {
 				method: 'post',
 				body: JSON.stringify({
 					topicid: topic
@@ -91,7 +92,7 @@ export default class CreateMentor4 extends Component {
 			});
 		}
 
-		await this.props.screenProps.handleChoice('homementor');
+		await this.props.screenProps.handleChoice('homementee');
 	}
 
 	render() {
@@ -110,7 +111,8 @@ export default class CreateMentor4 extends Component {
 						<CardItem>
 							<Body>
 								<Text style={{ alignSelf: 'center' }}>
-									Please select all skills that you are interested in mentoring!
+									Please select all skills that you are interested in being
+									mentored!
 								</Text>
 							</Body>
 						</CardItem>
