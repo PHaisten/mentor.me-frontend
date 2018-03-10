@@ -5,13 +5,57 @@ export default class SideBar extends Component {
 	render() {
 		return (
 			<ScrollView
-				style={{ backgroundColor: '#fff', paddingTop: 30, paddingLeft: 15 }}
+				style={{
+					backgroundColor: '#03A6FF',
+					paddingTop: 30,
+					paddingLeft: 15
+				}}
 			>
-				<Text style={{ fontSize: 20, marginBottom: 10 }}>Home</Text>
-				<Text style={{ fontSize: 20, marginBottom: 10 }}>Profile</Text>
-				<Text style={{ fontSize: 20, marginBottom: 10 }}>View Matches</Text>
-				<Text style={{ fontSize: 20, marginBottom: 10 }}>About us</Text>
-				<Text style={{ fontSize: 20, marginBottom: 10 }}>Logout</Text>
+				<Text
+					style={{
+						fontSize: 20,
+						marginBottom: 10
+					}}
+					onPress={this.props.Navigate1}
+				>
+					Home
+				</Text>
+				<Text
+					style={{
+						fontSize: 20,
+						marginBottom: 10
+					}}
+					onPress={this.props.Navigate2}
+				>
+					Search Subjects
+				</Text>
+				<Text
+					style={{
+						fontSize: 20,
+						marginBottom: 10
+					}}
+					onPress={this.props.Navigate3}
+				>
+					View Mentor Profiles
+				</Text>
+				<Text
+					style={{
+						fontSize: 20,
+						marginBottom: 10
+					}}
+					onPress={this.props.Navigate}
+				>
+					Contact
+				</Text>
+				<Text
+					style={{
+						fontSize: 20,
+						marginBottom: 10
+					}}
+				>
+					{/* onPress={this.props.Navigate4}> */}
+					Logout
+				</Text>
 			</ScrollView>
 		);
 	}
