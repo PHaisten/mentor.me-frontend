@@ -16,34 +16,16 @@ import {
 import PickerCustom from '../src/components/PickerCustom';
 
 export default class CreateAccountLand extends Component {
-	// constructor(props) {
-	// 	super(props);
-	// 	this.state = { profile: [] };
+	// navigate1() {
+	// 	this.props.navigation.navigate('CreateMentee', { name: 'Mentee' });
 	// }
-
-	// async componentDidMount() {
-	// 	let profile = await this.fetchProfile();
-
-	// 	this.setState({ profile });
-	// }
-
-	// async fetchProfile() {
-	// 	try {
-	// 		let result = await fetch({
-	// 			url: 'https://qlsgrnwsbs.localtunnel.me/api/'
-	// 		});
-	// 		let profile = await result.json();
-	// 		return profile;
-	// 	} catch (e) {
-	// 		console.log(e);
-	// 		return;
-	// 	}
+	// navigate2() {
+	// 	this.props.navigation.navigate('CreateMentor1', { name: 'Mentor' });
 	// }
 
 	render() {
-		const { navigate } = this.props.navigation;
 		return (
-			<Content>
+			<Content style={{ marginTop: 30 }}>
 				<Card>
 					<CardItem>
 						<Body>
@@ -51,27 +33,14 @@ export default class CreateAccountLand extends Component {
 						</Body>
 					</CardItem>
 				</Card>
-				<PickerCustom />
-				<Form>
-					<Item stackedLabel>
-						<Label>Email</Label>
-						<Input keyboardType="email-address" />
-					</Item>
-					<Item stackedLabel last>
-						<Label>Password</Label>
-						<Input secureTextEntry />
-					</Item>
-				</Form>
-
-				<Button
-					block
-					info
-					padding
-					style={{ width: 250, alignSelf: 'center', marginTop: 10 }}
-					onPress={() => navigate('CreateMentor1', { name: 'Mentor' })}
-				>
-					<Text>Submit</Text>
-				</Button>
+				<PickerCustom
+					Picker1={() => {
+						this.props.screenProps.handleChoice('mentor');
+					}}
+					Picker2={() => {
+						this.props.screenProps.handleChoice('mentee');
+					}}
+				/>
 			</Content>
 		);
 	}

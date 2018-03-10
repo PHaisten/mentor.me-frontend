@@ -1,82 +1,41 @@
-import React, { Component } from 'react-native';
+import React, { Component } from 'react';
 import { List, ListItem, Body, Text, Right, Switch } from 'native-base';
 
 export default class ListSkills extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			skill: this.props.skill.id,
 			toggleValue: false
 		};
 	}
-	return() {
-		render(
-			<List>
-				<ListItem>
-					<Body>
-						<Text>HTML</Text>
-					</Body>
-					<Right>
-						<Switch
-							value={this.state.toggleValue}
-							onValueChange={value => {
-								this.setState({ toggleValue: value });
-							}}
-						/>
-					</Right>
-				</ListItem>
-				<ListItem>
-					<Body>
-						<Text>CSS</Text>
-					</Body>
-					<Right>
-						<Switch
-							value={this.state.toggleValue}
-							onValueChange={value => {
-								this.setState({ toggleValue: value });
-							}}
-						/>
-					</Right>
-				</ListItem>
-				<ListItem>
-					<Body>
-						<Text>JavaScript</Text>
-					</Body>
-					<Right>
-						<Switch
-							value={this.state.toggleValue}
-							onValueChange={value => {
-								this.setState({ toggleValue: value });
-							}}
-						/>
-					</Right>
-				</ListItem>
-				<ListItem>
-					<Body>
-						<Text>React</Text>
-					</Body>
-					<Right>
-						<Switch
-							value={this.state.toggleValue}
-							onValueChange={value => {
-								this.setState({ toggleValue: value });
-							}}
-						/>
-					</Right>
-				</ListItem>
-				<ListItem>
-					<Body>
-						<Text>React-Native</Text>
-					</Body>
-					<Right>
-						<Switch
-							value={this.state.toggleValue}
-							onValueChange={value => {
-								this.setState({ toggleValue: value });
-							}}
-						/>
-					</Right>
-				</ListItem>
-			</List>
+
+	handleToggle(value) {
+		this.setState({ toggleValue: value });
+		if (value === true) {
+			this.props.NewSkill(this.state.skill);
+			console.log('Add', this.state.skill);
+		} else if (value === false) {
+			console.log('Remove', this.state.skill);
+			this.props.RemoveSkill(this.state.skill);
+		}
+	}
+
+	render() {
+		return (
+			<ListItem key={this.props.skill.id}>
+				<Body>
+					<Text>{this.props.skill.name}</Text>
+				</Body>
+				<Right>
+					<Switch
+						value={this.state.toggleValue}
+						onValueChange={value => {
+							this.handleToggle(value);
+						}}
+					/>
+				</Right>
+			</ListItem>
 		);
 	}
 }

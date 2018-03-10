@@ -23,115 +23,70 @@ export default class CreateMentee2 extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			toggleValue0: false,
-			toggleValue1: false,
-			toggleValue2: false,
-			toggleValue3: false,
-			toggleValue4: false
+			location: '',
+			bio: ''
 		};
+		this.id = this.props.navigation.state.params.id;
+	}
+
+	updateMentee() {
+		const { navigate } = this.props.navigation;
+		fetch(`http://localhost:3000/api/mentees/${this.id}`, {
+			method: 'put',
+			body: JSON.stringify({
+				location: this.state.location,
+				bio: this.state.bio
+			}),
+			headers: new Headers({
+				'Content-Type': 'application/json'
+			})
+		})
+			.then(res => {
+				console.log(res);
+			})
+			.then(() => navigate('CreateMentee3', { id: this.id }))
+			.catch(err => {
+				console.log(err);
+			});
 	}
 	render() {
 		const { navigate } = this.props.navigation;
 		return (
 			<Content>
-				<Card>
-					<CardItem>
-						<Body>
-							<Text style={{ alignSelf: 'center' }}>
-								Please select all skills that you are interested being mentored
-								in!
-							</Text>
-						</Body>
-					</CardItem>
-				</Card>
-				<List>
-					<ListItem>
-						<Left>
-							<Icon name="plane" />
-						</Left>
-						<Body>
-							<Text>HTML</Text>
-						</Body>
-						<Right>
-							<Switch
-								value={this.state.toggleValue0}
-								onValueChange={value => {
-									this.setState({ toggleValue0: value });
-								}}
-							/>
-						</Right>
-					</ListItem>
-					<ListItem>
-						<Left>
-							<Icon name="plane" />
-						</Left>
-						<Body>
-							<Text>CSS</Text>
-						</Body>
-						<Right>
-							<Switch
-								value={this.state.toggleValue1}
-								onValueChange={value => {
-									this.setState({ toggleValue1: value });
-								}}
-							/>
-						</Right>
-					</ListItem>
-					<ListItem>
-						<Left>
-							<Icon name="plane" />
-						</Left>
-						<Body>
-							<Text>JavaScript</Text>
-						</Body>
-						<Right>
-							<Switch
-								value={this.state.toggleValue2}
-								onValueChange={value => {
-									this.setState({ toggleValue2: value });
-								}}
-							/>
-						</Right>
-					</ListItem>
-					<ListItem>
-						<Left>
-							<Icon name="plane" />
-						</Left>
-						<Body>
-							<Text>React</Text>
-						</Body>
-						<Right>
-							<Switch
-								value={this.state.toggleValue3}
-								onValueChange={value => {
-									this.setState({ toggleValue3: value });
-								}}
-							/>
-						</Right>
-					</ListItem>
-					<ListItem>
-						<Left>
-							<Icon name="plane" />
-						</Left>
-						<Body>
-							<Text>React-Native</Text>
-						</Body>
-						<Right>
-							<Switch
-								value={this.state.toggleValue4}
-								onValueChange={value => {
-									this.setState({ toggleValue4: value });
-								}}
-							/>
-						</Right>
-					</ListItem>
-				</List>
+				<Form>
+					<Item floatingLabel>
+						<Label>City</Label>
+						<Input
+							ref={el => {
+								this.location = el;
+							}}
+							onChangeText={location => {
+								this.setState({ location });
+								console.log(this.state.location);
+							}}
+							value={this.state.location}
+						/>
+					</Item>
+					<Item floatingLabel last>
+						<Label>Bio</Label>
+						<Input
+							ref={el => {
+								this.bio = el;
+							}}
+							onChangeText={bio => {
+								this.setState({ bio });
+								console.log(this.state.bio);
+							}}
+							value={this.state.bio}
+						/>
+					</Item>
+				</Form>
 				<Button
 					block
 					info
 					padding
 					style={{ width: 250, alignSelf: 'center', marginTop: 10 }}
-					onPress={() => navigate('HomeScreen', { name: 'Home' })}
+					onPress={() => this.updateMentee()}
 				>
 					<Text>Next</Text>
 				</Button>
