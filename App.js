@@ -12,14 +12,19 @@ import CreateMentor1 from './screens/CreateMentor1';
 import CreateMentor2 from './screens/CreateMentor2';
 import CreateMentor3 from './screens/CreateMentor3';
 import CreateMentor4 from './screens/CreateMentor4';
+import HomeScreenMentee from './screens/HomeScreenMentee';
+import SearchBar from './screens/SearchBar';
+import MentorSearch from './screens/MentorSearch';
+import MentorProfile from './screens/MentorProfile';
 
 const CreateAccount = StackNavigator(
 	{
-		CreateAccountLand: { screen: CreateAccountLand },
-		Login: { screen: LoginScreen }
+		Login: { screen: LoginScreen },
+		CreateAccountLand: { screen: CreateAccountLand }
 	},
 	{
-		initialRouteName: 'Login'
+		initialRouteName: 'Login',
+		headerMode: 'none'
 	}
 );
 
@@ -32,7 +37,6 @@ const CreateMentorNavigator = StackNavigator(
 	},
 	{
 		initialRouteName: 'CreateMentor1'
-		// headerMode: 'none'
 	}
 );
 
@@ -43,12 +47,24 @@ const CreateMenteeNavigator = StackNavigator(
 		CreateMentee3: { screen: CreateMentee3 }
 	},
 	{
-		initialRouteName: 'CreateMentee',
+		initialRouteName: 'CreateMentee'
+	}
+);
+
+const MenteeHomeScreen = StackNavigator(
+	{
+		HomeScreen: { screen: HomeScreenMentee },
+		Topics: { screen: SearchBar },
+		Search: { screen: MentorSearch },
+		Profile: { screen: MentorProfile }
+	},
+	{
+		initialRouteName: 'HomeScreen',
 		headerMode: 'none'
 	}
 );
 
-const HomeScreenMentee = StackNavigator(
+const HomeScreenMentor = StackNavigator(
 	{
 		HomeScreen: { screen: HomeScreen }
 	},
@@ -62,7 +78,7 @@ export default class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			choice: '',
+			choice: 'homementee',
 			register: false
 		};
 	}
@@ -81,7 +97,7 @@ export default class App extends Component {
 				screenProps={{ handleChoice: this.handleChoice.bind(this) }}
 			/>
 		) : this.state.choice === 'homementee' ? (
-			<HomeScreenMentee
+			<MenteeHomeScreen
 				screenProps={{ handleChoice: this.handleChoice.bind(this) }}
 			/>
 		) : this.state.choice === 'homementor' ? (
