@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as loginService from '../src/services/logInOut'
+import * as loginService from '../src/services/logInOut';
 import {
 	ScrollView,
 	TextInput,
@@ -15,57 +15,54 @@ import { Item, Icon } from 'native-base';
 
 export default class LoginScreen extends Component {
 	constructor(props) {
-        super(props);
-        this.state = {
-            //redirectToReferrer: false,
-            email: '',
-            password: '',
-            //feedbackMessage: '',
-            //checkingLogin: true
-        };
-    }
+		super(props);
+		this.state = {
+			//redirectToReferrer: false,
+			email: '',
+			password: ''
+			//feedbackMessage: '',
+			//checkingLogin: true
+		};
+	}
 
-    // componentDidMount() {
-    //     loginService.checkLogin()
-    //     .then((loggedIn) => {
-    //         if (loggedIn) {
+	// componentDidMount() {
+	//     loginService.checkLogin()
+	//     .then((loggedIn) => {
+	//         if (loggedIn) {
 	// 			//{() => {this.props.screenProps.handleChoice('homementee')}}
-    //             this.setState(
+	//             this.setState(
 	// 				{ redirectToReferrer: true, checkingLogin: false }
 	// 			);
-    //         } else {
-    //             this.setState(
+	//         } else {
+	//             this.setState(
 	// 				{ checkingLogin: false }
 	// 			);
-    //          }
-    //     });
-    // }
+	//          }
+	//     });
+	// }
 
-    async login() {
-        loginService.login(this.state.email, this.state.password)
-        .then(() => {
-            this.setState(
-				{ redirectToReferrer: true }
-			);
-        }).catch((err) => {
-            if (err.message) {
-                this.setState(
-					{ feedbackMessage: err.message }
-				);
-            }
-		});
-		await  this.props.screenProps.handleChoice('homementee')
-    }
+	login() {
+		loginService
+			.login(this.state.email, this.state.password)
+			.then(() => {
+				this.setState({ redirectToReferrer: true });
+			})
+			.catch(err => {
+				if (err.message) {
+					this.setState({ feedbackMessage: err.message });
+				}
+			});
+		this.props.screenProps.handleChoice('homementee');
+	}
 
-    handleEmailChange(value) {
-        this.setState({ email: value });
-    }
-    handlePasswordChange(value) {
-        this.setState({ password: value });
-    }
-	//userType(userid){  if (mentee) then -> 'metees'; else--> 'mentors 
+	handleEmailChange(value) {
+		this.setState({ email: value });
+	}
+	handlePasswordChange(value) {
+		this.setState({ password: value });
+	}
+	//userType(userid){  if (mentee) then -> 'metees'; else--> 'mentors
 	//...await onPress={() => {this.props.screenProps.handleChoice('homementee')}}
-
 
 	render() {
 		const { navigate } = this.props.navigation;
@@ -86,32 +83,38 @@ export default class LoginScreen extends Component {
 						returnKeyType="next"
 						onSubmitEditing={() => this.passwordInput.focus()}
 						keyboardType="email-address"
-						ref= {el=> { 
-							this.email=el; 
+						ref={el => {
+							this.email = el;
 						}}
-						onChangeText={email => {this.setState({ email });
-						console.log(this.state)}}
+						onChangeText={email => {
+							this.setState({ email });
+							console.log(this.state);
+						}}
 					/>
 					<TextInput
 						placeholder="Password"
 						style={styles.input}
 						secureTextEntry
 						returnKeyType="go"
-						ref= {el=> { 
-							this.password=el; 
+						ref={el => {
+							this.password = el;
 						}}
-						onChangeText={password => {this.setState({ password });
-						console.log(this.state)}}
+						onChangeText={password => {
+							this.setState({ password });
+							console.log(this.state);
+						}}
 					/>
 					<Button
 						onPress={() => navigate('CreateAccountLand', { name: 'Account' })}
 						title="New here? Create an Account"
 					/>
 				</View>
-				<TouchableOpacity 
+				<TouchableOpacity
 					style={styles.button}
-					onSubmit={() => {this.login}}
-					>
+					onSubmit={() => {
+						this.login();
+					}}
+				>
 					<Text style={styles.buttonText}>LOGIN</Text>
 				</TouchableOpacity>
 			</KeyboardAvoidingView>
