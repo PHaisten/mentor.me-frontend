@@ -111,7 +111,7 @@ export default class LoginScreen extends Component {
 				</View>
 				<TouchableOpacity
 					style={styles.button}
-					onSubmit={() => {
+					onPress={() => {
 						this.login();
 					}}
 				>
