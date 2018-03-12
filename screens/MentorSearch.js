@@ -19,6 +19,30 @@ import MentorCard from '../src/components/MentorCard';
 import SideBar from '../src/components/SideBar';
 
 export default class MentorSearch extends Component {
+	goToHome() {
+		this.props.navigation.navigate('Home');
+	}
+
+	goToContact() {
+		this.props.navigation.navigate('Contact');
+	}
+
+	goToMentorSearch() {
+		this.props.navigation.navigate('Search');
+	}
+
+	goToSearchBar() {
+		this.props.navigation.navigate('Topics');
+	}
+
+	// goToLogout() {
+	//   this.props.navigation.navigate("Logout")
+	// }
+
+	navigate(mentor) {
+		this.props.navigation.navigate('Profile', { mentor });
+	}
+
 	constructor(props) {
 		super(props);
 		this.state = { mentors: [] };
@@ -89,7 +113,13 @@ export default class MentorSearch extends Component {
 				</Header>
 				<ScrollView>
 					{this.state.mentors.map(mentor => {
-						return <MentorCard key={mentor.id} mentor={mentor} />;
+						return (
+							<MentorCard
+								Navigate={() => this.navigate(mentor)}
+								key={mentor.id}
+								mentor={mentor}
+							/>
+						);
 					})}
 				</ScrollView>
 			</Drawer>

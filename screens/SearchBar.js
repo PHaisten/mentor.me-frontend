@@ -14,7 +14,8 @@ import {
 	CardItem,
 	Item,
 	Input,
-	Drawer
+	Drawer,
+	View
 } from 'native-base';
 
 import TopicsCard from '../src/components/TopicsCard';
@@ -25,6 +26,26 @@ export default class SearchBar extends Component {
 		super(props);
 		this.state = { topics: [], search: '' };
 	}
+
+	goToHome() {
+		this.props.navigation.navigate('Home');
+	}
+
+	goToContact() {
+		this.props.navigation.navigate('Contact');
+	}
+
+	goToMentorSearch() {
+		this.props.navigation.navigate('Search');
+	}
+
+	goToSearchBar() {
+		this.props.navigation.navigate('Topics');
+	}
+
+	// goToLogout() {
+	//   this.props.navigation.navigate("Logout")
+	// }
 
 	async componentDidMount() {
 		let topics = await this.getTopics();
@@ -109,39 +130,29 @@ export default class SearchBar extends Component {
 						</Body>
 					</Right>
 				</Header>
-				<Content>
-					<Content style={{ backgroundColor: '#ffffff' }}>
-						<Card>
-							<CardItem style={{ backgroundColor: '#FFFFF0' }}>
-								<Body searchBar rounded>
-									<Item
-										style={{
-											backgroundColor: '#ffffff',
-											paddingBottom: 10
-										}}
-									>
-										<Input
-											placeholder="Search Subjects"
-											onChangeText={text => this.setState({ search: text })}
-										/>
-										<Icon name="ios-search" />
-									</Item>
-									<Button
-										transparent
-										onPress={() =>
-											this.props.navigation.navigate('AvaiableMentors')
-										}
-									>
-										<Text>Search</Text>
-									</Button>
 
-									{filteredTopics.map(topic => {
-										return <TopicsCard key={topic.id} name={topic.name} />;
-									})}
-								</Body>
-							</CardItem>
-						</Card>
-					</Content>
+				<Content style={{ backgroundColor: '#ffffff' }}>
+					<CardItem style={{ backgroundColor: '#FFFFF0' }}>
+						<Body searchBar rounded>
+							<Item
+								style={{
+									backgroundColor: '#ffffff',
+									paddingBottom: 10
+								}}
+							>
+								<Input
+									placeholder="Search Subjects"
+									onChangeText={text => this.setState({ search: text })}
+								/>
+								<Icon name="ios-search" />
+							</Item>
+							<ScrollView style={{ flexDirection: 'row' }}>
+								{filteredTopics.map(topic => {
+									return <TopicsCard key={topic.id} name={topic.name} />;
+								})}
+							</ScrollView>
+						</Body>
+					</CardItem>
 				</Content>
 			</Drawer>
 		);

@@ -36,9 +36,13 @@ export default class MentorCard extends Component {
 				</CardItem>
 				<CardItem>
 					<Left>
-						<Button transparent textStyle={{ color: '#87838B' }}>
-							<Icon name="logo-github" />
-							<Text>1,926 stars</Text>
+						<Button
+							transparent
+							textStyle={{ color: '#87838B' }}
+							onPress={this.props.Navigate}
+						>
+							<Icon name="ios-contact" />
+							<Text>View Profile</Text>
 						</Button>
 					</Left>
 				</CardItem>

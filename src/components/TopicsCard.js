@@ -7,14 +7,14 @@ export default class TopicsCard extends Component {
 		return (
 			<Card
 				style={{
-					width: 150,
-					height: 150,
+					width: 140,
+					height: 75,
 					justifyContent: 'center'
 				}}
 			>
-				<CardItem>
+				<CardItem style={{}}>
 					<Body>
-						<Text style={{}}>{this.props.name}</Text>
+						<Text style={{ alignSelf: 'center' }}>{this.props.name}</Text>
 					</Body>
 				</CardItem>
 			</Card>
