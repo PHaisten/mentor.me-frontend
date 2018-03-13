@@ -17,6 +17,7 @@ import SearchBar from './screens/SearchBar';
 import MentorSearch from './screens/MentorSearch';
 import MentorProfile from './screens/MentorProfile';
 import ContactMentor from './screens/ContactMentor';
+import MentorbySkill from './screens/MentorbySkill';
 
 const CreateAccount = StackNavigator(
 	{
@@ -58,7 +59,8 @@ const MenteeHomeScreen = StackNavigator(
 		Topics: { screen: SearchBar },
 		Search: { screen: MentorSearch },
 		Profile: { screen: MentorProfile },
-		Contact: { screen: ContactMentor }
+		Contact: { screen: ContactMentor },
+		MentorSkill: { screen: MentorbySkill }
 	},
 	{
 		initialRouteName: 'Home',

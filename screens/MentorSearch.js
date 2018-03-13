@@ -60,6 +60,7 @@ export default class MentorSearch extends Component {
 				url: 'http://localhost:3000/api/mentors'
 			});
 			let mentors = await result.json();
+			console.log(mentors);
 			return mentors;
 		} catch (e) {
 			console.log(e);
@@ -112,11 +113,11 @@ export default class MentorSearch extends Component {
 					</Left>
 				</Header>
 				<ScrollView>
-					{this.state.mentors.map(mentor => {
+					{this.state.mentors.map((mentor, index) => {
 						return (
 							<MentorCard
 								Navigate={() => this.navigate(mentor)}
-								key={mentor.id}
+								key={index}
 								mentor={mentor}
 							/>
 						);
