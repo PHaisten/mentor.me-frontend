@@ -19,7 +19,7 @@ import {
 	Container
 } from 'native-base';
 
-import MentorCard from '../src/components/MentorCard';
+import MatchCard from '../src/components/MatchCard';
 import SideBar from '../src/components/SideBar';
 
 export default class HomeScreenMentee extends React.Component {
@@ -70,19 +70,21 @@ export default class HomeScreenMentee extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = { mentors: {} };
+		this.state = { mentors: [] };
 	}
 
 	async componentDidMount() {
 		let mentors = await this.fetchProfiles();
 
-		this.setState({ mentors });
+		this.setState({ mentors }, () => {
+			this.sortMentors();
+		});
 	}
 
 	async fetchProfiles() {
 		try {
 			let result = await fetch({
-				url: 'http://localhost:3000/api/mentees/matches/881'
+				url: 'http://localhost:3000/api/mentees/matches/941'
 			});
 			let mentors = await result.json();
 			console.log(mentors);
@@ -92,18 +94,27 @@ export default class HomeScreenMentee extends React.Component {
 			return;
 		}
 	}
-
 	sortMentors() {
 		let arr = [...this.state.mentors];
-		for (let i = 0; i < arr.length; i++) {
-			for (let j = 0; j < arr.length; j++) {
-				if (arr[i].mentorid === arr[j].mentorid) {
-					return console.log([arr[i].firstname + ' has been repeated']);
-				} else {
-					return console.log(arr[i].firstname + ' doesnt repeat');
-				}
+		let compares = new Map();
+
+		arr.forEach(mentor => {
+			let mappedMentor = compares.get(mentor.mentorid);
+
+			if (mappedMentor === undefined) {
+				mappedMentor = {};
+				mappedMentor.topics = [];
 			}
-		}
+
+			mappedMentor = { ...mentor, ...mappedMentor };
+			mappedMentor.topics.push(mappedMentor.topicid);
+			delete mappedMentor.topicid;
+			compares.set(mappedMentor.mentorid, mappedMentor);
+		});
+
+		this.setState({ mentors: [...compares.values()] }, () => {
+			console.log('The updated state is', this.state.mentors);
+		});
 	}
 
 	render() {
@@ -168,24 +179,17 @@ export default class HomeScreenMentee extends React.Component {
 						</Right>
 					</Header>
 					<Content>
-						<Body>
-							<Button
-								onPress={() => {
-									this.sortMentors();
-								}}
-							>
-								<Text value="Sort?" />
-							</Button>
-							{/* {this.state.mentors.map((mentor, index) => {
+						<ScrollView>
+							{this.state.mentors.map((mentor, index) => {
 								return (
-									<MentorCard
+									<MatchCard
 										Navigate={() => this.navigate(mentor)}
 										key={index}
 										mentor={mentor}
 									/>
 								);
-							})} */}
-						</Body>
+							})}
+						</ScrollView>
 					</Content>
 				</Container>
 			</Drawer>
