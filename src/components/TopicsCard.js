@@ -7,9 +7,13 @@ export default class TopicsCard extends Component {
 		return (
 			<Button
 				onPress={() => {
-					this.props.navigation.navigate('MentorSkill', {
-						topic: this.props.topic
-					});
+					this.props.navigation.navigate(
+						'MentorSkill',
+						{
+							topic: this.props.topic
+						},
+						{ mentor: this.props.mentor }
+					);
 				}}
 				style={{ marginTop: 10, marginBottom: 10, alignSelf: 'center' }}
 			>

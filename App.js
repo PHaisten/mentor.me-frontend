@@ -62,7 +62,7 @@ const MenteeHomeScreen = StackNavigator(
 		Profile: { screen: MentorProfile },
 		Contact: { screen: ContactMentor },
 		MentorSkill: { screen: MentorbySkill },
-		Profile: { screen: MyProfile }
+		MyProfile: { screen: MyProfile }
 	},
 	{
 		initialRouteName: 'Home',

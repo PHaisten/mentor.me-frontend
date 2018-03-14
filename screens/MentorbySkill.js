@@ -21,6 +21,9 @@ import {
 import MentorCard from '../src/components/MentorCard';
 
 export default class MentorbySkill extends Component {
+	navigate(mentor) {
+		this.props.navigation.navigate('Profile', { mentor });
+	}
 	constructor(props) {
 		super(props);
 

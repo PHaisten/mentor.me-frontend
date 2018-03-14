@@ -37,7 +37,7 @@ export default class MentorSearch extends Component {
 	}
 
 	goToMyProfile() {
-		this.props.navigation.navigate('Profile');
+		this.props.navigation.navigate('MyProfile');
 	}
 
 	logout() {

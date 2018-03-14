@@ -15,7 +15,8 @@ import {
 	CardItem,
 	Item,
 	Input,
-	Drawer
+	Drawer,
+	Container
 } from 'native-base';
 
 import MentorCard from '../src/components/MentorCard';
@@ -43,7 +44,7 @@ export default class HomeScreenMentee extends React.Component {
 	}
 
 	goToMyProfile() {
-		this.props.navigation.navigate('Profile');
+		this.props.navigation.navigate('MyProfile');
 	}
 
 	logout() {
@@ -61,6 +62,48 @@ export default class HomeScreenMentee extends React.Component {
 				}
 			}
 		]);
+	}
+
+	// navigate(mentor) {
+	// 	this.props.navigation.navigate('Profile', { mentor });
+	// }
+
+	constructor(props) {
+		super(props);
+		this.state = { mentors: {} };
+	}
+
+	async componentDidMount() {
+		let mentors = await this.fetchProfiles();
+
+		this.setState({ mentors });
+	}
+
+	async fetchProfiles() {
+		try {
+			let result = await fetch({
+				url: 'http://localhost:3000/api/mentees/matches/881'
+			});
+			let mentors = await result.json();
+			console.log(mentors);
+			return mentors;
+		} catch (e) {
+			console.log(e);
+			return;
+		}
+	}
+
+	sortMentors() {
+		let arr = [...this.state.mentors];
+		for (let i = 0; i < arr.length; i++) {
+			for (let j = 0; j < arr.length; j++) {
+				if (arr[i].mentorid === arr[j].mentorid) {
+					return console.log([arr[i].firstname + ' has been repeated']);
+				} else {
+					return console.log(arr[i].firstname + ' doesnt repeat');
+				}
+			}
+		}
 	}
 
 	render() {
@@ -100,30 +143,51 @@ export default class HomeScreenMentee extends React.Component {
 				}
 				onClose={() => closeDrawer()}
 			>
-				<Header style={{ backgroundColor: '#03A6FF' }}>
-					<Left>
-						<Button
-							transparent
-							onPress={() => {
-								openDrawer();
-							}}
-						>
-							<Icon name="menu" />
-						</Button>
-					</Left>
-					<Right>
-						<Body>
-							<Title
-								style={{
-									color: 'white'
+				<Container>
+					<Header style={{ backgroundColor: '#03A6FF' }}>
+						<Left>
+							<Button
+								transparent
+								onPress={() => {
+									openDrawer();
 								}}
 							>
-								Home
-							</Title>
+								<Icon name="menu" />
+							</Button>
+						</Left>
+						<Right>
+							<Body>
+								<Title
+									style={{
+										color: 'white'
+									}}
+								>
+									Home
+								</Title>
+							</Body>
+						</Right>
+					</Header>
+					<Content>
+						<Body>
+							<Button
+								onPress={() => {
+									this.sortMentors();
+								}}
+							>
+								<Text value="Sort?" />
+							</Button>
+							{/* {this.state.mentors.map((mentor, index) => {
+								return (
+									<MentorCard
+										Navigate={() => this.navigate(mentor)}
+										key={index}
+										mentor={mentor}
+									/>
+								);
+							})} */}
 						</Body>
-					</Right>
-				</Header>
-				<Body />
+					</Content>
+				</Container>
 			</Drawer>
 		);
 	}

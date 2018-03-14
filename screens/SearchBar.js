@@ -48,7 +48,7 @@ export default class SearchBar extends Component {
 		this.props.navigation.navigate('MentorSkill');
 	}
 	goToMyProfile() {
-		this.props.navigation.navigate('Profile');
+		this.props.navigation.navigate('MyProfile');
 	}
 	logout() {
 		AlertIOS.alert('Are you sure you want to logout?', 'y u want 2 leave me?', [
