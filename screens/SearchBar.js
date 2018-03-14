@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, Image } from 'react-native';
 import {
+	Container,
 	Header,
 	Title,
 	Left,
@@ -14,7 +15,8 @@ import {
 	CardItem,
 	Item,
 	Input,
-	Drawer
+	Drawer,
+	View
 } from 'native-base';
 
 import TopicsCard from '../src/components/TopicsCard';
@@ -25,6 +27,31 @@ export default class SearchBar extends Component {
 		super(props);
 		this.state = { topics: [], search: '' };
 	}
+
+	goToHome() {
+		this.props.navigation.navigate('Home');
+	}
+
+	goToContact() {
+		this.props.navigation.navigate('Contact');
+	}
+
+	goToMentorSearch() {
+		this.props.navigation.navigate('Search');
+	}
+
+	goToSearchBar() {
+		this.props.navigation.navigate('Topics');
+	}
+	goToMentorbySkill() {
+		this.props.navigation.navigate('MentorSkill');
+	}
+	goToMyProfile() {
+		this.props.navigation.navigate('Profile');
+	}
+	// goToLogout() {
+	//   this.props.navigation.navigate("Logout")
+	// }
 
 	async componentDidMount() {
 		let topics = await this.getTopics();
@@ -63,87 +90,91 @@ export default class SearchBar extends Component {
 		};
 
 		return (
-			<Drawer
-				ref={ref => {
-					this.drawer = ref;
-				}}
-				content={
-					<SideBar
-						Navigate={() => {
-							this.goToContact();
-						}}
-						Navigate1={() => {
-							this.goToHome();
-						}}
-						Navigate2={() => {
-							this.goToSearchBar();
-						}}
-						Navigate3={() => {
-							this.goToMentorSearch();
-						}}
-					/>
-				}
-				// Navigate4={() => { this.goToLogout() }}
-				onClose={() => closeDrawer()}
-			>
-				<Header style={{ backgroundColor: '#03A6FF' }}>
-					<Left>
-						<Button
-							transparent
-							onPress={() => {
-								openDrawer();
+			<Container>
+				<Drawer
+					ref={ref => {
+						this.drawer = ref;
+					}}
+					content={
+						<SideBar
+							Navigate={() => {
+								this.goToContact();
 							}}
-						>
-							<Icon name="menu" />
-						</Button>
-					</Left>
-					<Right>
-						<Body>
-							<Title
-								style={{
-									color: '#08E81F'
+							Navigate1={() => {
+								this.goToHome();
+							}}
+							Navigate2={() => {
+								closeDrawer();
+							}}
+							Navigate3={() => {
+								this.goToMentorSearch();
+							}}
+							Navigate6={() => {
+								this.goToMyProfile();
+							}}
+						/>
+					}
+					// Navigate4={() => { this.goToLogout() }}
+					onClose={() => closeDrawer()}
+				>
+					<Header style={{ backgroundColor: '#03A6FF' }}>
+						<Left>
+							<Button
+								transparent
+								onPress={() => {
+									openDrawer();
 								}}
 							>
-								Search by Topic
-							</Title>
-						</Body>
-					</Right>
-				</Header>
-				<Content>
-					<Content style={{ backgroundColor: '#ffffff' }}>
-						<Card>
-							<CardItem style={{ backgroundColor: '#FFFFF0' }}>
-								<Body searchBar rounded>
-									<Item
-										style={{
-											backgroundColor: '#ffffff',
-											paddingBottom: 10
-										}}
-									>
-										<Input
-											placeholder="Search Subjects"
-											onChangeText={text => this.setState({ search: text })}
-										/>
-										<Icon name="ios-search" />
-									</Item>
-									<Button
-										transparent
-										onPress={() =>
-											this.props.navigation.navigate('AvaiableMentors')
-										}
-									>
-										<Text>Search</Text>
-									</Button>
+								<Icon name="menu" />
+							</Button>
+						</Left>
+						<Right>
+							<Body>
+								<Title
+									style={{
+										color: '#ffffff'
+									}}
+								>
+									Search by Topic
+								</Title>
+							</Body>
+						</Right>
+					</Header>
+					<Item
+						style={{
+							backgroundColor: '#ffffff',
+							paddingBottom: 5,
+							paddingHorizontal: 10,
+							marginLeft: 0
+						}}
+					>
+						<Input
+							placeholder="Search Subjects"
+							onChangeText={text => this.setState({ search: text })}
+						/>
+						<Icon name="ios-search" />
+					</Item>
 
-									{filteredTopics.map(topic => {
-										return <TopicsCard key={topic.id} name={topic.name} />;
-									})}
-								</Body>
-							</CardItem>
-						</Card>
+					<Content
+						style={{
+							backgroundColor: '#ffffff'
+						}}
+					>
+						<Body searchBar rounded>
+							{filteredTopics.map(topic => {
+								return (
+									<TopicsCard
+										navigation={this.props.navigation}
+										key={topic.id}
+										name={topic.name}
+										topic={topic}
+									/>
+								);
+							})}
+						</Body>
 					</Content>
-				</Content>
-			</Drawer>
+				</Drawer>
+			</Container>
 		);
 	}
 }

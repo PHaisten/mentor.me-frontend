@@ -11,7 +11,8 @@ import {
 	Icon,
 	Left,
 	Body,
-	Content
+	Content,
+	Right
 } from 'native-base';
 import { StackNavigator } from 'react-navigation';
 
@@ -19,6 +20,34 @@ import MentorCard from '../src/components/MentorCard';
 import SideBar from '../src/components/SideBar';
 
 export default class MentorSearch extends Component {
+	goToHome() {
+		this.props.navigation.navigate('Home');
+	}
+
+	goToContact() {
+		this.props.navigation.navigate('Contact');
+	}
+
+	goToMentorSearch() {
+		this.props.navigation.navigate('Search');
+	}
+
+	goToSearchBar() {
+		this.props.navigation.navigate('Topics');
+	}
+
+	goToMyProfile() {
+		this.props.navigation.navigate('Profile');
+	}
+
+	// goToLogout() {
+	//   this.props.navigation.navigate("Logout")
+	// }
+
+	navigate(mentor) {
+		this.props.navigation.navigate('Profile', { mentor });
+	}
+
 	constructor(props) {
 		super(props);
 		this.state = { mentors: [] };
@@ -36,6 +65,7 @@ export default class MentorSearch extends Component {
 				url: 'http://localhost:3000/api/mentors'
 			});
 			let mentors = await result.json();
+			console.log(mentors);
 			return mentors;
 		} catch (e) {
 			console.log(e);
@@ -68,7 +98,10 @@ export default class MentorSearch extends Component {
 							this.goToSearchBar();
 						}}
 						Navigate3={() => {
-							this.goToMentorSearch();
+							closeDrawer();
+						}}
+						Navigate6={() => {
+							this.goToMyProfile();
 						}}
 					/>
 				}
@@ -86,10 +119,27 @@ export default class MentorSearch extends Component {
 							<Icon name="menu" />
 						</Button>
 					</Left>
+					<Right>
+						<Body>
+							<Title
+								style={{
+									color: 'white'
+								}}
+							>
+								Search Mentors
+							</Title>
+						</Body>
+					</Right>
 				</Header>
 				<ScrollView>
-					{this.state.mentors.map(mentor => {
-						return <MentorCard key={mentor.id} mentor={mentor} />;
+					{this.state.mentors.map((mentor, index) => {
+						return (
+							<MentorCard
+								Navigate={() => this.navigate(mentor)}
+								key={index}
+								mentor={mentor}
+							/>
+						);
 					})}
 				</ScrollView>
 			</Drawer>

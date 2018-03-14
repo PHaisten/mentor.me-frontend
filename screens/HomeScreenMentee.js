@@ -42,6 +42,12 @@ export default class HomeScreenMentee extends React.Component {
 		this.props.navigation.navigate('Topics');
 	}
 
+
+	goToMyProfile() {
+		this.props.navigation.navigate('Profile');
+	}
+
+
 	logout() {
 		AlertIOS.alert("Are you sure you want to logout?", "y u want 2 leave me?", [
 			{text: 'Cancel', 
@@ -53,6 +59,7 @@ export default class HomeScreenMentee extends React.Component {
             }}
         ])
 	}
+
 
 	render() {
 		closeDrawer = () => {
@@ -73,7 +80,7 @@ export default class HomeScreenMentee extends React.Component {
 							this.goToContact();
 						}}
 						Navigate1={() => {
-							this.goToHome();
+							closeDrawer();
 						}}
 						Navigate2={() => {
 							this.goToSearchBar();
@@ -81,8 +88,13 @@ export default class HomeScreenMentee extends React.Component {
 						Navigate3={() => {
 							this.goToMentorSearch();
 						}}
+
+						Navigate6={() => {
+							this.goToMyProfile();
+                       
 						Navigate4={() => { 
 							this.logout() 
+
 						}}
 					/>
 				}
@@ -103,7 +115,7 @@ export default class HomeScreenMentee extends React.Component {
 						<Body>
 							<Title
 								style={{
-									color: '#08E81F'
+									color: 'white'
 								}}
 							>
 								Home
@@ -112,28 +124,6 @@ export default class HomeScreenMentee extends React.Component {
 					</Right>
 				</Header>
 				<Body />
-
-				<Button
-					full
-					rounded
-					success
-					style={{
-						marginTop: 10,
-						paddingTop: 10
-					}}
-					onPress={() => this.props.navigation.navigate('Profile')}
-				>
-					<Text>Example of a Mentor's Profile</Text>
-				</Button>
-				<Button
-					full
-					rounded
-					warning
-					style={{ marginTop: 10 }}
-					onPress={() => this.props.navigation.navigate('Contact')}
-				>
-					<Text>Contact Us</Text>
-				</Button>
 			</Drawer>
 		);
 	}

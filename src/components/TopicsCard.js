@@ -1,23 +1,20 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import { Text, Body, Card, CardItem } from 'native-base';
+import { View, ScrollView } from 'react-native';
+import { Text, Body, Card, CardItem, Button } from 'native-base';
 
 export default class TopicsCard extends Component {
 	render() {
 		return (
-			<Card
-				style={{
-					width: 150,
-					height: 150,
-					justifyContent: 'center'
+			<Button
+				onPress={() => {
+					this.props.navigation.navigate('MentorSkill', {
+						topic: this.props.topic
+					});
 				}}
+				style={{ marginTop: 10, marginBottom: 10, alignSelf: 'center' }}
 			>
-				<CardItem>
-					<Body>
-						<Text style={{}}>{this.props.name}</Text>
-					</Body>
-				</CardItem>
-			</Card>
+				<Text style={{ alignSelf: 'center' }}>{this.props.name}</Text>
+			</Button>
 		);
 	}
 }

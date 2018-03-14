@@ -16,6 +16,9 @@ import HomeScreenMentee from './screens/HomeScreenMentee';
 import SearchBar from './screens/SearchBar';
 import MentorSearch from './screens/MentorSearch';
 import MentorProfile from './screens/MentorProfile';
+import ContactMentor from './screens/ContactMentor';
+import MentorbySkill from './screens/MentorbySkill';
+import MyProfile from './screens/MyProfile';
 
 const CreateAccount = StackNavigator(
 	{
@@ -53,23 +56,26 @@ const CreateMenteeNavigator = StackNavigator(
 
 const MenteeHomeScreen = StackNavigator(
 	{
-		HomeScreen: { screen: HomeScreenMentee },
+		Home: { screen: HomeScreenMentee },
 		Topics: { screen: SearchBar },
 		Search: { screen: MentorSearch },
-		Profile: { screen: MentorProfile }
+		Profile: { screen: MentorProfile },
+		Contact: { screen: ContactMentor },
+		MentorSkill: { screen: MentorbySkill },
+		Profile: { screen: MyProfile }
 	},
 	{
-		initialRouteName: 'HomeScreen',
+		initialRouteName: 'Home',
 		headerMode: 'none'
 	}
 );
 
 const HomeScreenMentor = StackNavigator(
 	{
-		HomeScreen: { screen: HomeScreen }
+		Home: { screen: HomeScreen }
 	},
 	{
-		initialRouteName: 'HomeScreen',
+		initialRouteName: 'Home',
 		headerMode: 'none'
 	}
 );
