@@ -11,7 +11,8 @@ import {
 	Icon,
 	Left,
 	Body,
-	Content
+	Content,
+	Right
 } from 'native-base';
 import { StackNavigator } from 'react-navigation';
 
@@ -33,6 +34,10 @@ export default class MentorSearch extends Component {
 
 	goToSearchBar() {
 		this.props.navigation.navigate('Topics');
+	}
+
+	goToMyProfile() {
+		this.props.navigation.navigate('Profile');
 	}
 
 	// goToLogout() {
@@ -93,7 +98,10 @@ export default class MentorSearch extends Component {
 							this.goToSearchBar();
 						}}
 						Navigate3={() => {
-							this.goToMentorSearch();
+							closeDrawer();
+						}}
+						Navigate6={() => {
+							this.goToMyProfile();
 						}}
 					/>
 				}
@@ -111,6 +119,17 @@ export default class MentorSearch extends Component {
 							<Icon name="menu" />
 						</Button>
 					</Left>
+					<Right>
+						<Body>
+							<Title
+								style={{
+									color: 'white'
+								}}
+							>
+								Search Mentors
+							</Title>
+						</Body>
+					</Right>
 				</Header>
 				<ScrollView>
 					{this.state.mentors.map((mentor, index) => {

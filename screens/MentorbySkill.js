@@ -52,10 +52,15 @@ export default class MentorbySkill extends Component {
 	render() {
 		return (
 			<Container>
-				<Header>
+				<Header style={{ height: 80 }}>
+					<Left>
+						<Button transparent onPress={() => this.props.navigation.goBack()}>
+							<Icon name="arrow-back" />
+						</Button>
+					</Left>
 					<Text
 						style={{
-							marginTop: 10,
+							marginTop: 15,
 							fontSize: 16,
 							textAlign: 'center'
 						}}

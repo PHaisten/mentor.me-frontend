@@ -68,7 +68,15 @@ export default class MentorProfile extends Component {
 						backgroundColor: '#fff'
 					}}
 				>
-					<Title style={{ marginTop: 20 }}>
+					<Left>
+						<Button transparent onPress={() => this.props.navigation.goBack()}>
+							<Icon name="arrow-back" />
+						</Button>
+					</Left>
+
+					<Title
+						style={{ marginTop: 15, alignText: 'center', marginRight: 135 }}
+					>
 						{this.mentor.firstname}'s Profile
 					</Title>
 				</Header>
@@ -95,7 +103,7 @@ export default class MentorProfile extends Component {
 										type="star"
 										placeholderRating={5}
 										ratingCount={5}
-										intialRating={5}
+										startingValue={5}
 										imageSize={30}
 										showRating
 										onFinishRating={this.ratingCompleted()}

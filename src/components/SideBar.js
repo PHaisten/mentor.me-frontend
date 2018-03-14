@@ -18,6 +18,10 @@ export default class SideBar extends Component {
 		this.props.navigation.navigate('Topics');
 	}
 
+	goToMyProfile() {
+		this.props.navigation.navigate('Profile');
+	}
+
 	// goToLogout() {
 	//   this.props.navigation.navigate("Logout")
 	// }
@@ -41,6 +45,9 @@ export default class SideBar extends Component {
 				}}
 				Navigate3={() => {
 					this.goToMentorSearch();
+				}}
+				Navigate6={() => {
+					this.goToMyProfile();
 				}}
 			>
 				<Text
@@ -69,6 +76,15 @@ export default class SideBar extends Component {
 					onPress={this.props.Navigate3}
 				>
 					View Mentor Profiles
+				</Text>
+				<Text
+					style={{
+						fontSize: 20,
+						marginBottom: 10
+					}}
+					onPress={this.props.Navigate6}
+				>
+					My Profile
 				</Text>
 				<Text
 					style={{

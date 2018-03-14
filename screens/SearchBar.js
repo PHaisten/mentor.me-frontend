@@ -46,6 +46,9 @@ export default class SearchBar extends Component {
 	goToMentorbySkill() {
 		this.props.navigation.navigate('MentorSkill');
 	}
+	goToMyProfile() {
+		this.props.navigation.navigate('Profile');
+	}
 	// goToLogout() {
 	//   this.props.navigation.navigate("Logout")
 	// }
@@ -101,10 +104,13 @@ export default class SearchBar extends Component {
 								this.goToHome();
 							}}
 							Navigate2={() => {
-								this.goToSearchBar();
+								closeDrawer();
 							}}
 							Navigate3={() => {
 								this.goToMentorSearch();
+							}}
+							Navigate6={() => {
+								this.goToMyProfile();
 							}}
 						/>
 					}
