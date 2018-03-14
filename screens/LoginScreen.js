@@ -19,7 +19,8 @@ export default class LoginScreen extends Component {
 		this.state = {
 			//redirectToReferrer: false,
 			email: '',
-			password: ''
+			password: '',
+			loggedIn: false
 			//feedbackMessage: '',
 			//checkingLogin: true
 		};
