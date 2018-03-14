@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, AsyncStorage, AlertIOS } from 'react-native';
 import {
 	Header,
 	Title,
@@ -40,9 +40,22 @@ export default class MentorSearch extends Component {
 		this.props.navigation.navigate('Profile');
 	}
 
-	// goToLogout() {
-	//   this.props.navigation.navigate("Logout")
-	// }
+	logout() {
+		AlertIOS.alert('Are you sure you want to logout?', 'y u want 2 leave me?', [
+			{
+				text: 'Cancel',
+				style: 'cancel'
+			},
+			{
+				text: 'Logout',
+				onPress: () => {
+					AsyncStorage.clear();
+					this.setState({ loggedIn: false });
+					this.props.screenProps.handleChoice('');
+				}
+			}
+		]);
+	}
 
 	navigate(mentor) {
 		this.props.navigation.navigate('Profile', { mentor });
@@ -102,6 +115,9 @@ export default class MentorSearch extends Component {
 						}}
 						Navigate6={() => {
 							this.goToMyProfile();
+						}}
+						Navigate4={() => {
+							this.logout();
 						}}
 					/>
 				}

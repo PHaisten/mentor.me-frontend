@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, ScrollView } from 'react-native';
+import { Text, ScrollView, AsyncStorage, AlertIOS } from 'react-native';
 
 export default class SideBar extends Component {
 	goToHome() {
@@ -22,9 +22,22 @@ export default class SideBar extends Component {
 		this.props.navigation.navigate('Profile');
 	}
 
-	// goToLogout() {
-	//   this.props.navigation.navigate("Logout")
-	// }
+	logout() {
+		AlertIOS.alert('Are you sure you want to logout?', 'y u want 2 leave me?', [
+			{
+				text: 'Cancel',
+				style: 'cancel'
+			},
+			{
+				text: 'Logout',
+				onPress: () => {
+					AsyncStorage.clear();
+					this.setState({ loggedIn: false });
+					this.props.screenProps.handleChoice('');
+				}
+			}
+		]);
+	}
 
 	render() {
 		return (
@@ -48,6 +61,9 @@ export default class SideBar extends Component {
 				}}
 				Navigate6={() => {
 					this.goToMyProfile();
+				}}
+				Navigate4={() => {
+					this.logout();
 				}}
 			>
 				<Text
@@ -101,7 +117,8 @@ export default class SideBar extends Component {
 						marginBottom: 10
 					}}
 					onPress={this.props.Navigate4}
-					>Logout
+				>
+					Logout
 				</Text>
 			</ScrollView>
 		);

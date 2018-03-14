@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StackNavigator } from 'react-navigation';
 
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, AsyncStorage, AlertIOS } from 'react-native';
 import {
 	Header,
 	Content,
@@ -36,6 +36,22 @@ export default class MyProfile extends Component {
 
 	goToSearchBar() {
 		this.props.navigation.navigate('Topics');
+	}
+	logout() {
+		AlertIOS.alert('Are you sure you want to logout?', 'y u want 2 leave me?', [
+			{
+				text: 'Cancel',
+				style: 'cancel'
+			},
+			{
+				text: 'Logout',
+				onPress: () => {
+					AsyncStorage.clear();
+					this.setState({ loggedIn: false });
+					this.props.screenProps.handleChoice('');
+				}
+			}
+		]);
 	}
 
 	constructor(props) {
@@ -95,6 +111,9 @@ export default class MyProfile extends Component {
 						}}
 						Navigate6={() => {
 							closeDrawer();
+						}}
+						Navigate4={() => {
+							this.logout();
 						}}
 					/>
 				}

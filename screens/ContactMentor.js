@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { AsyncStorage, AlertIOS, View } from 'react-native';
 import {
 	Header,
 	Content,
@@ -43,9 +43,22 @@ export default class ContactMentor extends Component {
 	goToMyProfile() {
 		this.props.navigation.navigate('Profile');
 	}
-	// goToLogout() {
-	//   this.props.navigation.navigate("Logout")
-	// }
+	logout() {
+		AlertIOS.alert('Are you sure you want to logout?', 'y u want 2 leave me?', [
+			{
+				text: 'Cancel',
+				style: 'cancel'
+			},
+			{
+				text: 'Logout',
+				onPress: () => {
+					AsyncStorage.clear();
+					this.setState({ loggedIn: false });
+					this.props.screenProps.handleChoice('');
+				}
+			}
+		]);
+	}
 	render() {
 		closeDrawer = () => {
 			this.drawer._root.close();
@@ -74,6 +87,9 @@ export default class ContactMentor extends Component {
 						}}
 						Navigate6={() => {
 							this.goToMyProfile();
+						}}
+						Navigate4={() => {
+							this.logout();
 						}}
 					/>
 				}

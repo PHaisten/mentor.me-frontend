@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { ScrollView, Image } from 'react-native';
+import { ScrollView, Image, AsyncStorage, AlertIOS } from 'react-native';
+
 import {
 	Container,
 	Header,
@@ -49,9 +50,22 @@ export default class SearchBar extends Component {
 	goToMyProfile() {
 		this.props.navigation.navigate('Profile');
 	}
-	// goToLogout() {
-	//   this.props.navigation.navigate("Logout")
-	// }
+	logout() {
+		AlertIOS.alert('Are you sure you want to logout?', 'y u want 2 leave me?', [
+			{
+				text: 'Cancel',
+				style: 'cancel'
+			},
+			{
+				text: 'Logout',
+				onPress: () => {
+					AsyncStorage.clear();
+					this.setState({ loggedIn: false });
+					this.props.screenProps.handleChoice('');
+				}
+			}
+		]);
+	}
 
 	async componentDidMount() {
 		let topics = await this.getTopics();
@@ -111,6 +125,9 @@ export default class SearchBar extends Component {
 							}}
 							Navigate6={() => {
 								this.goToMyProfile();
+							}}
+							Navigate4={() => {
+								this.logout();
 							}}
 						/>
 					}
