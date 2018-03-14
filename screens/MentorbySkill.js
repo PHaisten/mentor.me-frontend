@@ -18,6 +18,7 @@ import {
 	Drawer,
 	View
 } from 'native-base';
+import MentorCard from '../src/components/MentorCard';
 
 export default class MentorbySkill extends Component {
 	constructor(props) {
@@ -26,6 +27,7 @@ export default class MentorbySkill extends Component {
 		this.state = {
 			mentors: []
 		};
+		this.topic = this.props.navigation.state.params.topic;
 	}
 
 	async componentDidMount() {
@@ -37,7 +39,7 @@ export default class MentorbySkill extends Component {
 	async fetchMentorBySkill(id) {
 		try {
 			let result = await fetch({
-				url: `http://localhost:3000/api/topics/mentors/${this.props.topic.id}`
+				url: `http://localhost:3000/api/topics/mentors/${this.topic.id}`
 			});
 			let mentors = await result.json();
 			console.log(mentors);
@@ -48,6 +50,31 @@ export default class MentorbySkill extends Component {
 		}
 	}
 	render() {
-		return <Text>Hai Bud</Text>;
+		return (
+			<Container>
+				<Header>
+					<Text
+						style={{
+							marginTop: 10,
+							fontSize: 16,
+							textAlign: 'center'
+						}}
+					>
+						Mentors Who Know: {this.topic.name}
+					</Text>
+				</Header>
+				<ScrollView>
+					{this.state.mentors.map((mentor, index) => {
+						return (
+							<MentorCard
+								Navigate={() => this.navigate(mentor)}
+								key={index}
+								mentor={mentor}
+							/>
+						);
+					})}
+				</ScrollView>
+			</Container>
+		);
 	}
 }

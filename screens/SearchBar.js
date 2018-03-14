@@ -158,7 +158,7 @@ export default class SearchBar extends Component {
 							{filteredTopics.map(topic => {
 								return (
 									<TopicsCard
-										onPress={() => this.goToMentorbySkill()}
+										navigation={this.props.navigation}
 										key={topic.id}
 										name={topic.name}
 										topic={topic}

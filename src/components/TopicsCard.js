@@ -5,7 +5,14 @@ import { Text, Body, Card, CardItem, Button } from 'native-base';
 export default class TopicsCard extends Component {
 	render() {
 		return (
-			<Button style={{ marginTop: 10, marginBottom: 10, alignSelf: 'center' }}>
+			<Button
+				onPress={() => {
+					this.props.navigation.navigate('MentorSkill', {
+						topic: this.props.topic
+					});
+				}}
+				style={{ marginTop: 10, marginBottom: 10, alignSelf: 'center' }}
+			>
 				<Text style={{ alignSelf: 'center' }}>{this.props.name}</Text>
 			</Button>
 		);
