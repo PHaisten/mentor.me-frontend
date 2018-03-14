@@ -52,9 +52,8 @@ export default class SideBar extends Component {
 						fontSize: 20,
 						marginBottom: 10
 					}}
-				>
-					{/* onPress={this.props.Navigate4}> */}
-					Logout
+					onPress={this.props.Navigate4}
+					>Logout
 				</Text>
 			</ScrollView>
 		);

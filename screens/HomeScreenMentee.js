@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StackNavigator } from 'react-navigation';
-import { ScrollView, Image } from 'react-native';
+import { ScrollView, Image, AlertIOS, AsyncStorage } from 'react-native';
 import {
 	Header,
 	Title,
@@ -42,9 +42,17 @@ export default class HomeScreenMentee extends React.Component {
 		this.props.navigation.navigate('Topics');
 	}
 
-	// goToLogout() {
-	//   this.props.navigation.navigate("Logout")
-	// }
+	logout() {
+		AlertIOS.alert("Are you sure you want to logout?", "y u want 2 leave me?", [
+			{text: 'Cancel', 
+                style: 'cancel'},
+            {text: 'Logout', onPress: () => {
+                AsyncStorage.clear();
+                this.setState( { loggedIn: false })
+                this.props.screenProps.handleChoice('');
+            }}
+        ])
+	}
 
 	render() {
 		closeDrawer = () => {
@@ -73,9 +81,11 @@ export default class HomeScreenMentee extends React.Component {
 						Navigate3={() => {
 							this.goToMentorSearch();
 						}}
+						Navigate4={() => { 
+							this.logout() 
+						}}
 					/>
 				}
-				// Navigate4={() => { this.goToLogout() }}
 				onClose={() => closeDrawer()}
 			>
 				<Header style={{ backgroundColor: '#03A6FF' }}>
