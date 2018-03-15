@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Rating } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 
-import { View, ScrollView, Linking } from 'react-native';
+import { View, ScrollView, Linking, Image } from 'react-native';
 import {
 	Header,
 	Content,
@@ -99,6 +99,14 @@ export default class MentorProfile extends Component {
 							</Left>
 							<Right>
 								<Body>
+								<Image 
+									source={{
+										uri: `https://s3.amazonaws.com/mentor-me-covalence/${this.mentor.id}.jpeg`}} 
+									style={{
+										width: 100, 
+										height: 100, 
+										borderRadius: 50 }}
+										/>
 									<Rating
 										type="star"
 										placeholderRating={5}
