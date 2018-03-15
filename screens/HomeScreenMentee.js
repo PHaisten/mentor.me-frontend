@@ -91,7 +91,7 @@ export default class HomeScreenMentee extends React.Component {
 
 						Navigate6={() => {
 							this.goToMyProfile();
-                       
+						}}	
 						Navigate4={() => { 
 							this.logout() 
 
