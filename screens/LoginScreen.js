@@ -9,7 +9,8 @@ import {
 	TouchableOpacity,
 	KeyboardAvoidingView,
 	TouchableHighlight,
-	Button
+	Button,
+	ImageBackground
 } from 'react-native';
 import { Item, Icon } from 'native-base';
 
@@ -69,56 +70,65 @@ export default class LoginScreen extends Component {
 		const { navigate } = this.props.navigation;
 
 		return (
-			<KeyboardAvoidingView
-				behavior="padding"
-				style={styles.container1}
-				keyboardVerticalOffset={65}
+			<ImageBackground
+				style={{
+					width: '100%',
+					height: '100%'
+				}}
+				blurRadius={6}
+				source={require('../src/images/background.jpg')}
 			>
-				<View style={styles.container1}>
-					<Text style={styles.text}>Mentor.Me</Text>
-				</View>
-				<View style={styles.container2}>
-					<TextInput
-						placeholder="Email"
-						style={styles.input}
-						returnKeyType="next"
-						onSubmitEditing={() => this.passwordInput.focus()}
-						keyboardType="email-address"
-						ref={el => {
-							this.email = el;
-						}}
-						onChangeText={email => {
-							this.setState({ email });
-							console.log(this.state);
-						}}
-					/>
-					<TextInput
-						placeholder="Password"
-						style={styles.input}
-						secureTextEntry
-						returnKeyType="go"
-						ref={el => {
-							this.password = el;
-						}}
-						onChangeText={password => {
-							this.setState({ password });
-							console.log(this.state);
-						}}
-					/>
-					<Button
-						onPress={() => navigate('CreateAccountLand', { name: 'Account' })}
-						title="New here? Create an Account"
-					/>
-				</View>
-				<TouchableOpacity
-					style={styles.button}
-					onPress={() => {
-						this.login();
-					}}
+				<KeyboardAvoidingView
+					behavior="padding"
+					style={styles.container1}
+					keyboardVerticalOffset={45}
 				>
-					<Text style={styles.buttonText}>LOGIN</Text>
-				</TouchableOpacity>
-			</KeyboardAvoidingView>
+					<View style={styles.container1}>
+						<Text style={styles.text}>mentor.me</Text>
+					</View>
+					<View style={styles.container2}>
+						<TextInput
+							placeholder="Email"
+							style={styles.input}
+							returnKeyType="next"
+							onSubmitEditing={() => this.password.focus()}
+							keyboardType="email-address"
+							ref={el => {
+								this.email = el;
+							}}
+							onChangeText={email => {
+								this.setState({ email });
+								console.log(this.state);
+							}}
+						/>
+						<TextInput
+							placeholder="Password"
+							style={styles.input}
+							secureTextEntry
+							returnKeyType="go"
+							ref={el => {
+								this.password = el;
+							}}
+							onChangeText={password => {
+								this.setState({ password });
+								console.log(this.state);
+							}}
+						/>
+						<Button
+							onPress={() => navigate('CreateAccountLand', { name: 'Account' })}
+							title="New here? Create an Account"
+						/>
+						<TouchableOpacity
+							style={styles.button}
+							onPress={() => {
+								this.login();
+							}}
+						>
+							<Text style={styles.buttonText}>LOGIN</Text>
+						</TouchableOpacity>
+					</View>
+				</KeyboardAvoidingView>
+			</ImageBackground>
 		);
 	}
 }
@@ -134,31 +144,34 @@ const styles = StyleSheet.create({
 	container1: {
 		flex: 1,
 		padding: 15,
-		alignContent: 'center',
-		backgroundColor: '#00BCD4'
+		alignContent: 'center'
+		// shadowOpacity: 0.5
 	},
 	container2: {
 		padding: 10,
-		alignContent: 'center'
+		alignContent: 'center',
+		backgroundColor: 'rgba(52, 52, 52, 0.375)',
+		marginBottom: 20
 	},
 	text: {
 		textAlign: 'center',
-		color: '#FFF',
-		fontSize: 50,
+		color: '#4F7ECC',
+		fontSize: 55,
 		fontWeight: 'bold',
-		fontFamily: 'Verdana',
+		fontFamily: 'Damascus',
 		marginTop: 30
 	},
 	button: {
-		backgroundColor: '#B2EBF2',
+		backgroundColor: '#4F7ECC',
 		paddingVertical: 10,
-		marginBottom: 10
+		marginBottom: 5
 	},
 	buttonText: {
 		textAlign: 'center',
 		padding: 2,
 		fontWeight: 'bold',
-		fontSize: 18
+		fontSize: 18,
+		color: 'white'
 	},
 	smallText: {
 		justifyContent: 'center',

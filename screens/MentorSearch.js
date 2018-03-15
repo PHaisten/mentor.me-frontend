@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { View, ScrollView, AsyncStorage, AlertIOS } from 'react-native';
+import {
+	View,
+	ScrollView,
+	AsyncStorage,
+	AlertIOS,
+	ActivityIndicator
+} from 'react-native';
 import {
 	Header,
 	Title,
@@ -63,13 +69,17 @@ export default class MentorSearch extends Component {
 
 	constructor(props) {
 		super(props);
-		this.state = { mentors: [] };
+		this.state = {
+			mentors: [],
+			animating: true
+		};
 	}
 
 	async componentDidMount() {
 		let mentors = await this.fetchProfiles();
 
 		this.setState({ mentors });
+		this.setState({ animating: false });
 	}
 
 	async fetchProfiles() {
@@ -157,6 +167,16 @@ export default class MentorSearch extends Component {
 							/>
 						);
 					})}
+					<ActivityIndicator
+						animating={this.state.animating}
+						hidesWhenStopped
+						size="large"
+						style={{
+							color: '#0000ff',
+							alignSelf: 'center',
+							marginVertical: 30
+						}}
+					/>
 				</ScrollView>
 			</Drawer>
 		);

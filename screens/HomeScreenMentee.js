@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import { StackNavigator } from 'react-navigation';
-import { ScrollView, Image, AlertIOS, AsyncStorage } from 'react-native';
+import {
+	ScrollView,
+	Image,
+	AlertIOS,
+	AsyncStorage,
+	ActivityIndicator,
+	View
+} from 'react-native';
 import {
 	Header,
 	Title,
@@ -16,7 +23,8 @@ import {
 	Item,
 	Input,
 	Drawer,
-	Container
+	Container,
+	Spinner
 } from 'native-base';
 
 import MatchCard from '../src/components/MatchCard';
@@ -64,13 +72,16 @@ export default class HomeScreenMentee extends React.Component {
 		]);
 	}
 
-	// navigate(mentor) {
-	// 	this.props.navigation.navigate('Profile', { mentor });
-	// }
+	navigate(mentor) {
+		this.props.navigation.navigate('Profile', { mentor });
+	}
 
 	constructor(props) {
 		super(props);
-		this.state = { mentors: [] };
+		this.state = {
+			mentors: [],
+			animating: true
+		};
 	}
 
 	async componentDidMount() {
@@ -78,6 +89,7 @@ export default class HomeScreenMentee extends React.Component {
 
 		this.setState({ mentors }, () => {
 			this.sortMentors();
+			this.setState({ animating: false });
 		});
 	}
 
@@ -99,7 +111,7 @@ export default class HomeScreenMentee extends React.Component {
 		let compares = new Map();
 
 		arr.forEach(mentor => {
-			let mappedMentor = compares.get(mentor.mentorid);
+			let mappedMentor = compares.get(mentor.id);
 
 			if (mappedMentor === undefined) {
 				mappedMentor = {};
@@ -109,7 +121,7 @@ export default class HomeScreenMentee extends React.Component {
 			mappedMentor = { ...mentor, ...mappedMentor };
 			mappedMentor.topics.push(mappedMentor.topicid);
 			delete mappedMentor.topicid;
-			compares.set(mappedMentor.mentorid, mappedMentor);
+			compares.set(mappedMentor.id, mappedMentor);
 		});
 
 		this.setState({ mentors: [...compares.values()] }, () => {
@@ -190,6 +202,16 @@ export default class HomeScreenMentee extends React.Component {
 								);
 							})}
 						</ScrollView>
+						<ActivityIndicator
+							animating={this.state.animating}
+							hidesWhenStopped
+							size="large"
+							style={{
+								color: '#0000ff',
+								alignSelf: 'center',
+								marginVertical: 30
+							}}
+						/>
 					</Content>
 				</Container>
 			</Drawer>

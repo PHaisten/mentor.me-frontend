@@ -40,10 +40,7 @@ export default class MentorCard extends Component {
 							</Text>
 						</Body>
 					</Left>
-					<Right>
-						<Text note>Match Level:</Text>
-						<Text>placeholder</Text>
-					</Right>
+
 				</CardItem>
 				<CardItem>
 					<Body>

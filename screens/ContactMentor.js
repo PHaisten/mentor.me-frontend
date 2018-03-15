@@ -131,11 +131,11 @@ export default class ContactMentor extends Component {
 							<Item>
 								<Input placeholder="Subject" />
 							</Item>
+							<Title style={{ color: '#9C9C9C', marginTop: 10 }}>Message</Title>
 							<Item fixedLabel>
 								<InputGroup borderType="rounded">
 									<Icon name="ios-mail" />
 									<Textarea
-										placeholder="Type your message here"
 										style={{
 											height: 200,
 											width: '90%',

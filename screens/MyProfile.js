@@ -133,7 +133,7 @@ export default class MyProfile extends Component {
 					</Left>
 					<Right>
 						<Body>
-							<Title style={{ color: 'white' }}>Your Profile</Title>
+							<Title style={{ color: 'white' }}>My Profile</Title>
 						</Body>
 					</Right>
 				</Header>
