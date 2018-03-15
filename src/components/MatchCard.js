@@ -27,7 +27,7 @@ export default class MatchCard extends Component {
 					</Left>
 					<Right>
 						<Text note>Match Score:</Text>
-						<Text>{}</Text>
+						<Text>{this.props.mentor.topics}</Text>
 					</Right>
 				</CardItem>
 				<CardItem>

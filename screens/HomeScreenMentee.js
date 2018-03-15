@@ -207,7 +207,6 @@ export default class HomeScreenMentee extends React.Component {
 							hidesWhenStopped
 							size="large"
 							style={{
-								color: '#0000ff',
 								alignSelf: 'center',
 								marginVertical: 30
 							}}
