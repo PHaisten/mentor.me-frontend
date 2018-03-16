@@ -74,9 +74,7 @@ export default class MentorProfile extends Component {
 						</Button>
 					</Left>
 
-					<Title
-						style={{ marginTop: 15, alignText: 'center', marginRight: 135 }}
-					>
+					<Title style={{ marginTop: 15, marginRight: 135 }}>
 						{this.mentor.firstname}'s Profile
 					</Title>
 				</Header>
@@ -99,14 +97,18 @@ export default class MentorProfile extends Component {
 							</Left>
 							<Right>
 								<Body>
-								<Image 
-									source={{
-										uri: `https://s3.amazonaws.com/mentor-me-covalence/${this.mentor.id}.jpeg`}} 
-									style={{
-										width: 100, 
-										height: 100, 
-										borderRadius: 50 }}
-										/>
+									<Image
+										source={{
+											uri: `https://s3.amazonaws.com/mentor-me-covalence/${
+												this.mentor.id
+											}.jpeg`
+										}}
+										style={{
+											width: 100,
+											height: 100,
+											borderRadius: 50
+										}}
+									/>
 									<Rating
 										type="star"
 										placeholderRating={5}

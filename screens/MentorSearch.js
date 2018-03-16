@@ -172,7 +172,6 @@ export default class MentorSearch extends Component {
 						hidesWhenStopped
 						size="large"
 						style={{
-							color: '#0000ff',
 							alignSelf: 'center',
 							marginVertical: 30
 						}}

@@ -83,7 +83,7 @@ export default class ContactMentor extends Component {
 							this.goToSearchBar();
 						}}
 						Navigate3={() => {
-							closeDrawer();
+							this.goToMentorSearch();
 						}}
 						Navigate6={() => {
 							this.goToMyProfile();
@@ -93,7 +93,6 @@ export default class ContactMentor extends Component {
 						}}
 					/>
 				}
-				// Navigate4={() => { this.goToLogout() }}
 				onClose={() => closeDrawer()}
 			>
 				<Container>
