@@ -12,7 +12,23 @@ import {
 	CardItem
 } from 'native-base';
 
+// let arr = this.props.mentor.topics.toString().length;
+
 export default class MatchCard extends Component {
+	// async componentDidMount() {
+	// 	let score = await this.getTopicsLength();
+	// }
+
+	// async getTopicsLength() {
+	// 	try {
+	// 		let results = await this.props.mentor.topics.toString().length;
+	// 		return results;
+	// 		console.log(results);
+	// 	} catch (e) {
+	// 		console.log(e);
+	// 	}
+	// }
+
 	render() {
 		return (
 			<Card key={this.props.mentor.userid}>
@@ -25,10 +41,10 @@ export default class MatchCard extends Component {
 							</Text>
 						</Body>
 					</Left>
-					<Right>
+					{/* <Right>
 						<Text note>Match Score:</Text>
-						<Text>{this.props.mentor.topics}</Text>
-					</Right>
+						<Text>{this.results}</Text>
+					</Right> */}
 				</CardItem>
 				<CardItem>
 					<Body>

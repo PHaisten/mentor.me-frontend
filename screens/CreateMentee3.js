@@ -92,7 +92,7 @@ export default class CreateMentee3 extends Component {
 			});
 		}
 
-		await this.props.screenProps.handleChoice('homementee');
+		await this.props.screenProps.handleChoice('homementee', { id: this.id });
 	}
 
 	render() {

@@ -82,6 +82,7 @@ export default class HomeScreenMentee extends React.Component {
 			mentors: [],
 			animating: true
 		};
+		// this.id = this.props.navigation.state.params.id;
 	}
 
 	async componentDidMount() {
@@ -96,7 +97,7 @@ export default class HomeScreenMentee extends React.Component {
 	async fetchProfiles() {
 		try {
 			let result = await fetch({
-				url: 'http://localhost:3000/api/mentees/matches/941'
+				url: `http://localhost:3000/api/mentees/matches/971`
 			});
 			let mentors = await result.json();
 			console.log(mentors);

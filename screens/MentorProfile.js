@@ -135,10 +135,10 @@ export default class MentorProfile extends Component {
 										Sunday: {this.state.schedule.sunday},
 										{'\n'}
 										{'\n'}
-										Monday:{this.state.schedule.monday},
+										Monday: {this.state.schedule.monday},
 										{'\n'}
 										{'\n'}
-										Tuesday:{this.state.schedule.tuesday},
+										Tuesday: {this.state.schedule.tuesday},
 										{'\n'}
 										{'\n'}
 										Wednesday: {this.state.schedule.wednesday},

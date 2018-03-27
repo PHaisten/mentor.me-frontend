@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, YellowBox } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
 import HomeScreen from './screens/HomeScreen';
@@ -19,6 +19,9 @@ import MentorProfile from './screens/MentorProfile';
 import ContactMentor from './screens/ContactMentor';
 import MentorbySkill from './screens/MentorbySkill';
 import MyProfile from './screens/MyProfile';
+import EditProfile from './screens/EditProfile';
+
+console.disableYellowBox = true;
 
 const CreateAccount = StackNavigator(
 	{
@@ -62,7 +65,8 @@ const MenteeHomeScreen = StackNavigator(
 		Profile: { screen: MentorProfile },
 		Contact: { screen: ContactMentor },
 		MentorSkill: { screen: MentorbySkill },
-		MyProfile: { screen: MyProfile }
+		MyProfile: { screen: MyProfile },
+		EditProfile: { screen: EditProfile }
 	},
 	{
 		initialRouteName: 'Home',

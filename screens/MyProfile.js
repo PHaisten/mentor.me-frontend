@@ -54,6 +54,12 @@ export default class MyProfile extends Component {
 		]);
 	}
 
+	navigate(mentee) {
+		this.props.navigation.navigate('EditProfile', {
+			mentee: this.state.mentee
+		});
+	}
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -72,7 +78,7 @@ export default class MyProfile extends Component {
 	async fetchMenteeProfile() {
 		try {
 			let result = await fetch({
-				url: `http://localhost:3000/api/mentees/1811`
+				url: `http://localhost:3000/api/mentees/2121`
 			});
 			let mentee = await result.json();
 			return mentee[0];
@@ -169,7 +175,11 @@ export default class MyProfile extends Component {
 						</Card>
 					</Content>
 					<Footer>
-						<Button info style={{ alignSelf: 'center' }}>
+						<Button
+							onPress={() => this.navigate()}
+							info
+							style={{ alignSelf: 'center' }}
+						>
 							<Text>Edit Profile</Text>
 						</Button>
 					</Footer>
